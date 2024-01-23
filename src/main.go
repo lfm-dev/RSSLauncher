@@ -7,6 +7,8 @@ import (
 	"github.com/mmcdole/gofeed"
 )
 
+//TODO run command with item url
+
 func getFeed(feedUrl string, fp *gofeed.Parser) *gofeed.Feed {
 	feed, err := fp.ParseURL(feedUrl)
 	if err != nil {
