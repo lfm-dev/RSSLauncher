@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
+	"github.com/anaskhan96/soup"
 	"github.com/mmcdole/gofeed"
 )
 
@@ -16,8 +18,8 @@ func getFeed(feedUrl string, fp *gofeed.Parser) (*gofeed.Feed, error) {
 func main() {
 	feedsUrls := make([]string, 0)
 	feedsUrls = append(feedsUrls, "https://www.raptitude.com/feed")
-	feedsUrls = append(feedsUrls, "https://calnewport.com/blog/feed")
 	feedsUrls = append(feedsUrls, "https://go.dev/blog/feed.atom")
+	feedsUrls = append(feedsUrls, "https://calnewport.com/blog/feed")
 
 	fp := gofeed.NewParser()
 	for feedIndex, feedUrl := range feedsUrls {
@@ -31,7 +33,16 @@ func main() {
 		fmt.Println()
 		fmt.Println(feedIndex, feed.Title, lastUpdate)
 		for _, item := range feed.Items {
-			fmt.Println(item.Title, item.PublishedParsed.Format("02-01-2006"))
+
+			fmt.Println("\n"+item.Title, item.PublishedParsed.Format("02-01-2006")+"\n")
+
+			doc := soup.HTMLParse(item.Content)
+			fullText := strings.Split(doc.FullText(), "\n")
+			for _, line := range fullText {
+				if len(strings.TrimSpace(line)) != 0 {
+					fmt.Println(line)
+				}
+			}
 		}
 	}
 }

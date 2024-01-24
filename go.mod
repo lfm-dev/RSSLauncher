@@ -6,6 +6,7 @@ require github.com/rivo/tview v0.0.0-20240118093911-742cf086196e
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.0 // indirect
+	github.com/anaskhan96/soup v1.2.5 // indirect
 	github.com/andybalholm/cascadia v1.3.1 // indirect
 	github.com/gdamore/encoding v1.0.0 // indirect
 	github.com/gdamore/tcell/v2 v2.6.1-0.20231203215052-2917c3801e73 // indirect
