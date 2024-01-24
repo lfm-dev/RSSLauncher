@@ -2,19 +2,15 @@ package main
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/mmcdole/gofeed"
 )
 
 //TODO run command with item url
 
-func getFeed(feedUrl string, fp *gofeed.Parser) *gofeed.Feed {
+func getFeed(feedUrl string, fp *gofeed.Parser) (*gofeed.Feed, error) {
 	feed, err := fp.ParseURL(feedUrl)
-	if err != nil {
-		fmt.Printf("Can't get %s data\n", feedUrl)
-	}
-	return feed
+	return feed, err
 }
 
 func main() {
@@ -25,12 +21,17 @@ func main() {
 
 	fp := gofeed.NewParser()
 	for feedIndex, feedUrl := range feedsUrls {
-		feed := getFeed(feedUrl, fp)
+		feed, err := getFeed(feedUrl, fp)
+		if err != nil {
+			fmt.Printf("Can't get %s data\n", feedUrl)
+			continue
+		}
+
 		lastUpdate := feed.Items[0].PublishedParsed // update date of newest post
 		fmt.Println()
 		fmt.Println(feedIndex, feed.Title, lastUpdate)
-		for index, item := range feed.Items {
-			fmt.Println(index, item.Title, item.PublishedParsed.Format(time.UnixDate))
+		for _, item := range feed.Items {
+			fmt.Println(item.Title, item.PublishedParsed.Format("02-01-2006"))
 		}
 	}
 }
