@@ -9,6 +9,7 @@ import (
 )
 
 //TODO run command with item url
+//TODO open item on browser on enter
 
 func getFeed(feedUrl string, fp *gofeed.Parser) (*gofeed.Feed, error) {
 	feed, err := fp.ParseURL(feedUrl)
