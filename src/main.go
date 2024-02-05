@@ -82,14 +82,14 @@ func main() {
 	_, rows := 2, len(feedsUrls)
 	for row := 0; row < rows; row++ {
 		table.SetCell(row, 0,
-			tview.NewTableCell(feedsUrls[row]).
+			tview.NewTableCell(feeds[row].name).
 				SetTextColor(tcell.ColorWhite).
 				SetAlign(tview.AlignLeft))
 
-		table.SetCell(row, 1,
-			tview.NewTableCell("").
-				SetTextColor(tcell.ColorWhite).
-				SetAlign(tview.AlignCenter))
+		// table.SetCell(row, 1,
+		// 	tview.NewTableCell("").
+		// 		SetTextColor(tcell.ColorWhite).
+		// 		SetAlign(tview.AlignCenter))
 	}
 
 	table.Select(0, 0).SetFixed(1, 1).SetDoneFunc(func(key tcell.Key) {
@@ -98,7 +98,6 @@ func main() {
 		}
 	}).SetSelectedFunc(func(row int, column int) {
 		fmt.Println(table.GetCell(row, column).Text)
-		fmt.Println("ea", feedsUrls[row])
 	})
 
 	if err := app.SetRoot(table, true).SetFocus(table).Run(); err != nil {
