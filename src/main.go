@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"strings"
 	"time"
 
 	"github.com/gdamore/tcell/v2"
@@ -65,22 +67,28 @@ func getFeeds(feedsUrls []string) []Feed {
 	return feeds
 }
 
+func getFeedsUrl() []string {
+	homePath, _ := os.UserHomeDir()
+	feedsFilePath := homePath + "/.config/RSS/feeds.txt"
+	feeds, err := os.ReadFile(feedsFilePath)
+	if err != nil {
+		fmt.Println("oops")
+	}
+	feedsUrls := strings.Split(strings.TrimSpace(string(feeds)), "\n")
+	return feedsUrls
+}
+
 func main() {
-	feedsUrls := make([]string, 0)
-	feedsUrls = append(feedsUrls, "https://www.raptitude.com/feed")
-	feedsUrls = append(feedsUrls, "https://go.dev/blog/feed.atom")
-	feedsUrls = append(feedsUrls, "https://calnewport.com/blog/feed")
-
+	feedsUrls := getFeedsUrl()
 	feeds := getFeeds(feedsUrls)
-	fmt.Println(feeds)
 
-	//tview
 	app := tview.NewApplication()
 	table := tview.NewTable().
 		SetSelectable(true, false)
 
-	_, rows := 2, len(feedsUrls)
+	_, rows := 2, len(feeds)
 	for row := 0; row < rows; row++ {
+		fmt.Println(row)
 		table.SetCell(row, 0,
 			tview.NewTableCell(feeds[row].name).
 				SetTextColor(tcell.ColorWhite).
@@ -103,5 +111,4 @@ func main() {
 	if err := app.SetRoot(table, true).SetFocus(table).Run(); err != nil {
 		panic(err)
 	}
-
 }
