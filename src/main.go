@@ -78,9 +78,7 @@ func getFeedsUrl() []string {
 	return feedsUrls
 }
 
-func main() {
-	feedsUrls := getFeedsUrl()
-	feeds := getFeeds(feedsUrls)
+func view(feeds []Feed) {
 
 	app := tview.NewApplication()
 	table := tview.NewTable().
@@ -111,4 +109,10 @@ func main() {
 	if err := app.SetRoot(table, true).SetFocus(table).Run(); err != nil {
 		panic(err)
 	}
+}
+
+func main() {
+	feedsUrls := getFeedsUrl()
+	feeds := getFeeds(feedsUrls)
+	view(feeds)
 }
