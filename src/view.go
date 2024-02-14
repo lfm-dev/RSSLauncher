@@ -13,17 +13,12 @@ func view(feeds []Feed) {
 	table := tview.NewTable().
 		SetSelectable(true, false)
 
-	_, rows := 2, len(feeds)
+	rows := len(feeds)
 	for row := 0; row < rows; row++ {
 		table.SetCell(row, 0,
 			tview.NewTableCell(feeds[row].name).
 				SetTextColor(tcell.ColorWhite).
 				SetAlign(tview.AlignLeft))
-
-		// table.SetCell(row, 1,
-		// 	tview.NewTableCell("").
-		// 		SetTextColor(tcell.ColorWhite).
-		// 		SetAlign(tview.AlignCenter))
 	}
 
 	table.Select(0, 0).SetFixed(1, 1).SetDoneFunc(func(key tcell.Key) {
@@ -34,7 +29,19 @@ func view(feeds []Feed) {
 		fmt.Println(table.GetCell(row, column).Text)
 	})
 
-	if err := app.SetRoot(table, true).SetFocus(table).Run(); err != nil {
+	var mainFlex = tview.NewFlex()
+	var feedsFlex = tview.NewFlex()
+	var postsFlex = tview.NewFlex()
+
+	feedsFlex.AddItem(table, 0, 1, false)
+	feedsFlex.SetBorder(true)
+	postsFlex.AddItem(table, 0, 1, false)
+	postsFlex.SetBorder(true)
+	mainFlex.AddItem(feedsFlex, 0, 1, false)
+	mainFlex.AddItem(postsFlex, 0, 2, false)
+
+	if err := app.SetRoot(mainFlex, true).SetFocus(table).Run(); err != nil {
 		panic(err)
 	}
+
 }
