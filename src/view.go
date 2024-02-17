@@ -5,6 +5,8 @@ import (
 	"github.com/rivo/tview"
 )
 
+//TODO configure postsTable
+
 var (
 	mainFlex  = tview.NewFlex()
 	feedsFlex = tview.NewFlex()
@@ -25,15 +27,19 @@ func getFeedsTable(feeds []Feed) *tview.Table {
 	return feedsTable
 }
 
-func makePostsTable(postsTable *tview.Table, feedIndex int) {
-	postsTable.SetCell(0, 0, tview.NewTableCell("test2"))
+func makePostsTable(postsTable *tview.Table, feed Feed) {
+	postsTable.Clear()
+	for i, post := range feed.items {
+		postsTable.SetCell(i, 0,
+			tview.NewTableCell(post.title))
+	}
 }
 
 func view(feeds []Feed) {
 
 	app := tview.NewApplication()
 	feedsTable := getFeedsTable(feeds)
-	postsTable := tview.NewTable()
+	postsTable := tview.NewTable().SetSelectable(true, false)
 
 	feedsFlex.AddItem(feedsTable, 0, 1, false).SetBorder(true)
 	postsFlex.AddItem(postsTable, 0, 1, false).SetBorder(true)
@@ -45,9 +51,15 @@ func view(feeds []Feed) {
 		if key == tcell.KeyEscape {
 			app.Stop()
 		}
-	}).SetSelectedFunc(func(feedIndex int, column int) {
-		makePostsTable(postsTable, feedIndex)
+	}).SetSelectedFunc(func(row int, column int) {
+		app.SetFocus(postsTable)
 	})
+
+	feedsTable.SetSelectionChangedFunc(func(feedIndex int, column int) {
+		makePostsTable(postsTable, feeds[feedIndex]) // show selected feed posts
+	})
+
+	makePostsTable(postsTable, feeds[0]) // show first feed posts
 
 	if err := app.SetRoot(mainFlex, true).SetFocus(feedsTable).Run(); err != nil {
 		panic(err)
