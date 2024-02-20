@@ -1,17 +1,19 @@
 package main
 
 import (
+	"os/exec"
+
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
-
-//TODO configure postsTable
 
 var (
 	mainFlex  = tview.NewFlex()
 	feedsFlex = tview.NewFlex()
 	postsFlex = tview.NewFlex()
 )
+
+const BROWSER = "firefox"
 
 func getFeedsTable(feeds []Feed) *tview.Table {
 	feedsTable := tview.NewTable().
@@ -41,6 +43,8 @@ func view(feeds []Feed) {
 	feedsTable := getFeedsTable(feeds)
 	postsTable := tview.NewTable().SetSelectable(true, false)
 
+	makePostsTable(postsTable, feeds[0]) // show first feed posts
+
 	feedsFlex.AddItem(feedsTable, 0, 1, false).SetBorder(true)
 	postsFlex.AddItem(postsTable, 0, 1, false).SetBorder(true)
 
@@ -51,7 +55,9 @@ func view(feeds []Feed) {
 		if key == tcell.KeyEscape {
 			app.Stop()
 		}
-	}).SetSelectedFunc(func(row int, column int) {
+	})
+
+	feedsTable.SetSelectedFunc(func(row int, column int) {
 		app.SetFocus(postsTable)
 	})
 
@@ -59,7 +65,17 @@ func view(feeds []Feed) {
 		makePostsTable(postsTable, feeds[feedIndex]) // show selected feed posts
 	})
 
-	makePostsTable(postsTable, feeds[0]) // show first feed posts
+	postsTable.SetDoneFunc(func(key tcell.Key) {
+		if key == tcell.KeyEscape {
+			app.SetFocus(feedsTable)
+		}
+	})
+
+	postsTable.SetSelectedFunc(func(itemIndex int, _ int) {
+		feedIndex, _ := feedsTable.GetSelection() // ignore column
+		cmdStruct := exec.Command(BROWSER, feeds[feedIndex].items[itemIndex].url)
+		cmdStruct.Output()
+	})
 
 	if err := app.SetRoot(mainFlex, true).SetFocus(feedsTable).Run(); err != nil {
 		panic(err)
