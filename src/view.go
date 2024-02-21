@@ -41,9 +41,9 @@ func getTables(feeds []Feed, app *tview.Application) (*tview.Table, *tview.Table
 	})
 
 	postsTable.SetSelectedFunc(func(itemIndex int, _ int) {
-		feedIndex, _ := feedsTable.GetSelection() // ignore column
+		feedIndex, _ := feedsTable.GetSelection()
 		cmdStruct := exec.Command(BROWSER, feeds[feedIndex].items[itemIndex].url)
-		cmdStruct.Output()
+		cmdStruct.Run()
 	})
 
 	return feedsTable, postsTable
@@ -61,9 +61,9 @@ func renderFeedsTable(feeds []Feed, feedsTable *tview.Table) {
 func renderPostsTable(postsTable *tview.Table, feed Feed) {
 	postsTable.Clear()
 	for i, post := range feed.items {
-		itemLine := fmt.Sprintf("(%s) %s", post.dateFormated, post.title)
+		postLine := fmt.Sprintf("(%s) %s", post.dateFormated, post.title)
 		postsTable.SetCell(i, 0,
-			tview.NewTableCell(itemLine))
+			tview.NewTableCell(postLine))
 	}
 }
 
