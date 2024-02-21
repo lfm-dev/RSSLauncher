@@ -50,6 +50,14 @@ func getTables(feeds []Feed, app *tview.Application) (*tview.Table, *tview.Table
 	return feedsTable, postsTable
 }
 
+func getInputField(app *tview.Application) *tview.InputField {
+	inputField := tview.NewInputField().SetLabel("Test: ").SetFieldWidth(10).SetDoneFunc(func(key tcell.Key) {
+		app.Stop()
+	})
+	return inputField
+
+}
+
 func renderFeedsTable(feeds []Feed, feedsTable *tview.Table) {
 	for i, feed := range feeds {
 		feedsTable.SetCell(i, 0,
@@ -73,8 +81,11 @@ func view(feeds []Feed) {
 	app := tview.NewApplication()
 	feedsTable, postsTable := getTables(feeds, app)
 
+	cmdInput := getInputField(app)
+
 	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, false)
-	mainFlex.AddItem(tablesFlex, 0, 1, false)
+	mainFlex.SetDirection(tview.FlexRow)
+	mainFlex.AddItem(tablesFlex, 0, 1, false).AddItem(cmdInput, 1, 0, false)
 
 	renderFeedsTable(feeds, feedsTable)
 	renderPostsTable(postsTable, feeds[0]) // show first feed posts at start
