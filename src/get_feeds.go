@@ -37,7 +37,7 @@ func getFeedsUrl() []string {
 	feedsFilePath := homePath + "/.config/RSS/feeds.txt"
 	feeds, err := os.ReadFile(feedsFilePath)
 	if err != nil {
-		fmt.Println("oops")
+		panic(err)
 	}
 	feedsUrls := strings.Split(strings.TrimSpace(string(feeds)), "\n")
 	return feedsUrls
