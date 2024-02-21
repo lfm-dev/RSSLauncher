@@ -77,7 +77,7 @@ func view(feeds []Feed) {
 	mainFlex.AddItem(feedsFlex, 0, 1, false).AddItem(postsFlex, 0, 3, false)
 
 	renderFeedsTable(feeds, feedsTable)
-	renderPostsTable(postsTable, feeds[0]) // show first feed posts
+	renderPostsTable(postsTable, feeds[0]) // show first feed posts at start
 
 	if err := app.SetRoot(mainFlex, true).SetFocus(feedsTable).Run(); err != nil {
 		panic(err)
