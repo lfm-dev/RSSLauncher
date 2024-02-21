@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os/exec"
 
 	"github.com/gdamore/tcell/v2"
@@ -32,8 +33,9 @@ func getFeedsTable(feeds []Feed) *tview.Table {
 func makePostsTable(postsTable *tview.Table, feed Feed) {
 	postsTable.Clear()
 	for i, post := range feed.items {
+		itemLine := fmt.Sprintf("(%s) %s", post.dateFormated, post.title)
 		postsTable.SetCell(i, 0,
-			tview.NewTableCell(post.title))
+			tview.NewTableCell(itemLine))
 	}
 }
 
