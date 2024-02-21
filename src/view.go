@@ -20,17 +20,17 @@ func getTables(feeds []Feed, app *tview.Application) (*tview.Table, *tview.Table
 	feedsTable := tview.NewTable().SetSelectable(true, false)
 	postsTable := tview.NewTable().SetSelectable(true, false)
 
-	feedsTable.Select(0, 0).SetFixed(1, 1).SetDoneFunc(func(key tcell.Key) {
+	feedsTable.SetDoneFunc(func(key tcell.Key) {
 		if key == tcell.KeyEscape {
 			app.Stop()
 		}
 	})
 
-	feedsTable.SetSelectedFunc(func(row int, column int) {
+	feedsTable.SetSelectedFunc(func(_ int, _ int) {
 		app.SetFocus(postsTable)
 	})
 
-	feedsTable.SetSelectionChangedFunc(func(feedIndex int, column int) {
+	feedsTable.SetSelectionChangedFunc(func(feedIndex int, _ int) {
 		renderPostsTable(postsTable, feeds[feedIndex])
 	})
 
@@ -72,13 +72,12 @@ func view(feeds []Feed) {
 	app := tview.NewApplication()
 	feedsTable, postsTable := getTables(feeds, app)
 
-	renderFeedsTable(feeds, feedsTable)
-
-	renderPostsTable(postsTable, feeds[0]) // show first feed posts
-
 	feedsFlex.AddItem(feedsTable, 0, 1, false).SetBorder(true)
 	postsFlex.AddItem(postsTable, 0, 1, false).SetBorder(true)
 	mainFlex.AddItem(feedsFlex, 0, 1, false).AddItem(postsFlex, 0, 3, false)
+
+	renderFeedsTable(feeds, feedsTable)
+	renderPostsTable(postsTable, feeds[0]) // show first feed posts
 
 	if err := app.SetRoot(mainFlex, true).SetFocus(feedsTable).Run(); err != nil {
 		panic(err)
