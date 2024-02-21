@@ -45,6 +45,7 @@ func getTables(feeds []Feed, app *tview.Application, cmdInput *tview.InputField)
 		feedIndex, _ := feedsTable.GetSelection()
 		cmd := exec.Command(BROWSER, feeds[feedIndex].items[itemIndex].url)
 		cmd.Run()
+		app.SetFocus(postsTable)
 	})
 
 	feedsTable.SetBorder(true)
@@ -59,6 +60,12 @@ func getInputField(app *tview.Application) *tview.InputField {
 		if key == tcell.KeyEnter && len(inputField.GetText()) > 0 {
 			cmd := exec.Command("firefox", inputField.GetText()) // TEST
 			cmd.Run()
+			inputField.SetText("")
+			app.SetFocus(tablesFlex)
+		}
+		if key == tcell.KeyEscape {
+			inputField.SetText("")
+			app.SetFocus(tablesFlex)
 		}
 	})
 
@@ -90,7 +97,7 @@ func view(feeds []Feed) {
 	cmdInput := getInputField(app)
 	feedsTable, postsTable := getTables(feeds, app, cmdInput)
 
-	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, false)
+	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, true) // postTable true so it is focused when press Esc in cmdInput
 	mainFlex.SetDirection(tview.FlexRow)
 	mainFlex.AddItem(tablesFlex, 0, 1, false).AddItem(cmdInput, 1, 0, false)
 
