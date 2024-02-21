@@ -42,8 +42,8 @@ func getTables(feeds []Feed, app *tview.Application) (*tview.Table, *tview.Table
 
 	postsTable.SetSelectedFunc(func(itemIndex int, _ int) {
 		feedIndex, _ := feedsTable.GetSelection()
-		cmdStruct := exec.Command(BROWSER, feeds[feedIndex].items[itemIndex].url)
-		cmdStruct.Run()
+		cmd := exec.Command(BROWSER, feeds[feedIndex].items[itemIndex].url)
+		cmd.Run()
 	})
 
 	return feedsTable, postsTable
