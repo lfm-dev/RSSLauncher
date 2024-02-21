@@ -30,7 +30,7 @@ func getFeedsTable(feeds []Feed) *tview.Table {
 	return feedsTable
 }
 
-func makePostsTable(postsTable *tview.Table, feed Feed) {
+func renderPostsTable(postsTable *tview.Table, feed Feed) {
 	postsTable.Clear()
 	for i, post := range feed.items {
 		itemLine := fmt.Sprintf("(%s) %s", post.dateFormated, post.title)
@@ -45,7 +45,7 @@ func view(feeds []Feed) {
 	feedsTable := getFeedsTable(feeds)
 	postsTable := tview.NewTable().SetSelectable(true, false)
 
-	makePostsTable(postsTable, feeds[0]) // show first feed posts
+	renderPostsTable(postsTable, feeds[0]) // show first feed posts
 
 	feedsFlex.AddItem(feedsTable, 0, 1, false).SetBorder(true)
 	postsFlex.AddItem(postsTable, 0, 1, false).SetBorder(true)
@@ -64,7 +64,7 @@ func view(feeds []Feed) {
 	})
 
 	feedsTable.SetSelectionChangedFunc(func(feedIndex int, column int) {
-		makePostsTable(postsTable, feeds[feedIndex]) // show selected feed posts
+		renderPostsTable(postsTable, feeds[feedIndex])
 	})
 
 	postsTable.SetDoneFunc(func(key tcell.Key) {
