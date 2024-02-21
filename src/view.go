@@ -50,6 +50,7 @@ func getTables(feeds []Feed, app *tview.Application, cmdInput *tview.InputField)
 
 	feedsTable.SetBorder(true)
 	postsTable.SetBorder(true)
+
 	return feedsTable, postsTable
 }
 
@@ -70,7 +71,6 @@ func getInputField(app *tview.Application) *tview.InputField {
 	})
 
 	return inputField
-
 }
 
 func renderFeedsTable(feeds []Feed, feedsTable *tview.Table) {
