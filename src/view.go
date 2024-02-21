@@ -15,7 +15,7 @@ var (
 
 const BROWSER = "firefox"
 
-func getTables(feeds []Feed, app *tview.Application) (*tview.Table, *tview.Table) {
+func getTables(feeds []Feed, app *tview.Application, cmdInput *tview.InputField) (*tview.Table, *tview.Table) {
 	feedsTable := tview.NewTable().SetSelectable(true, false)
 	postsTable := tview.NewTable().SetSelectable(true, false)
 
@@ -36,6 +36,8 @@ func getTables(feeds []Feed, app *tview.Application) (*tview.Table, *tview.Table
 	postsTable.SetDoneFunc(func(key tcell.Key) {
 		if key == tcell.KeyEscape {
 			app.SetFocus(feedsTable)
+		} else if key == tcell.KeyTab {
+			app.SetFocus(cmdInput)
 		}
 	})
 
@@ -51,9 +53,15 @@ func getTables(feeds []Feed, app *tview.Application) (*tview.Table, *tview.Table
 }
 
 func getInputField(app *tview.Application) *tview.InputField {
-	inputField := tview.NewInputField().SetLabel("Test: ").SetFieldWidth(10).SetDoneFunc(func(key tcell.Key) {
-		app.Stop()
+	inputField := tview.NewInputField().SetLabel("Test: ").SetFieldWidth(10)
+
+	inputField.SetDoneFunc(func(key tcell.Key) {
+		if key == tcell.KeyEnter && len(inputField.GetText()) > 0 {
+			cmd := exec.Command("firefox", inputField.GetText()) // TEST
+			cmd.Run()
+		}
 	})
+
 	return inputField
 
 }
@@ -79,9 +87,8 @@ func renderPostsTable(postsTable *tview.Table, feed Feed) {
 func view(feeds []Feed) {
 
 	app := tview.NewApplication()
-	feedsTable, postsTable := getTables(feeds, app)
-
 	cmdInput := getInputField(app)
+	feedsTable, postsTable := getTables(feeds, app, cmdInput)
 
 	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, false)
 	mainFlex.SetDirection(tview.FlexRow)
