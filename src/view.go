@@ -19,15 +19,17 @@ const BROWSER = "firefox"
 func getFeedsTable(feeds []Feed) *tview.Table {
 	feedsTable := tview.NewTable().
 		SetSelectable(true, false)
+	return feedsTable
+}
 
-	rows := len(feeds)
-	for row := 0; row < rows; row++ {
-		feedsTable.SetCell(row, 0,
-			tview.NewTableCell(feeds[row].name).
+func renderFeedsTable(feeds []Feed, feedsTable *tview.Table) {
+	for i, feed := range feeds {
+		feedsTable.SetCell(i, 0,
+			tview.NewTableCell(feed.name).
 				SetTextColor(tcell.ColorWhite).
 				SetAlign(tview.AlignLeft))
 	}
-	return feedsTable
+
 }
 
 func renderPostsTable(postsTable *tview.Table, feed Feed) {
@@ -43,15 +45,16 @@ func view(feeds []Feed) {
 
 	app := tview.NewApplication()
 	feedsTable := getFeedsTable(feeds)
+
+	renderFeedsTable(feeds, feedsTable)
+
 	postsTable := tview.NewTable().SetSelectable(true, false)
 
 	renderPostsTable(postsTable, feeds[0]) // show first feed posts
 
 	feedsFlex.AddItem(feedsTable, 0, 1, false).SetBorder(true)
 	postsFlex.AddItem(postsTable, 0, 1, false).SetBorder(true)
-
-	mainFlex.AddItem(feedsFlex, 0, 1, false)
-	mainFlex.AddItem(postsFlex, 0, 2, false)
+	mainFlex.AddItem(feedsFlex, 0, 1, false).AddItem(postsFlex, 0, 3, false)
 
 	feedsTable.Select(0, 0).SetFixed(1, 1).SetDoneFunc(func(key tcell.Key) {
 		if key == tcell.KeyEscape {
