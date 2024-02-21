@@ -9,9 +9,8 @@ import (
 )
 
 var (
-	mainFlex  = tview.NewFlex()
-	feedsFlex = tview.NewFlex()
-	postsFlex = tview.NewFlex()
+	mainFlex   = tview.NewFlex()
+	tablesFlex = tview.NewFlex()
 )
 
 const BROWSER = "firefox"
@@ -46,6 +45,8 @@ func getTables(feeds []Feed, app *tview.Application) (*tview.Table, *tview.Table
 		cmd.Run()
 	})
 
+	feedsTable.SetBorder(true)
+	postsTable.SetBorder(true)
 	return feedsTable, postsTable
 }
 
@@ -72,9 +73,8 @@ func view(feeds []Feed) {
 	app := tview.NewApplication()
 	feedsTable, postsTable := getTables(feeds, app)
 
-	feedsFlex.AddItem(feedsTable, 0, 1, false).SetBorder(true)
-	postsFlex.AddItem(postsTable, 0, 1, false).SetBorder(true)
-	mainFlex.AddItem(feedsFlex, 0, 1, false).AddItem(postsFlex, 0, 3, false)
+	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, false)
+	mainFlex.AddItem(tablesFlex, 0, 1, false)
 
 	renderFeedsTable(feeds, feedsTable)
 	renderPostsTable(postsTable, feeds[0]) // show first feed posts at start
