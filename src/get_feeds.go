@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/mmcdole/gofeed"
 	"github.com/schollz/progressbar/v3"
@@ -29,7 +30,8 @@ func getFeeds(feedsUrls []string) []Feed {
 	for i, feedUrl := range feedsUrls {
 		goFeed, err := feedParser.ParseURL(feedUrl)
 		if err != nil {
-			fmt.Printf("Can't get %s data\n", feedUrl)
+			fmt.Printf("\nError: Can't get %s data\n", feedUrl)
+			time.Sleep(2000 * time.Millisecond)
 			continue
 		}
 
