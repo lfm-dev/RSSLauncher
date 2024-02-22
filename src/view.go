@@ -95,6 +95,7 @@ func renderPostsTable(postsTable *tview.Table, feed Feed) {
 	}
 }
 
+//TODO make fn to set up every component
 func view(feeds []Feed) {
 	app := tview.NewApplication()
 	cmdInput := getInputField(app)
