@@ -13,6 +13,10 @@ var (
 	tablesFlex = tview.NewFlex()
 )
 
+const (
+	HELPTEXT = "Open in browser: Enter / Run command: TAB / Quit | Return: Esc"
+)
+
 func getTables(feeds []Feed, app *tview.Application, cmdInput *tview.InputField) (*tview.Table, *tview.Table) {
 	feedsTable := tview.NewTable().SetSelectable(true, false)
 	postsTable := tview.NewTable().SetSelectable(true, false)
@@ -94,10 +98,11 @@ func view(feeds []Feed) {
 	app := tview.NewApplication()
 	cmdInput := getInputField(app)
 	feedsTable, postsTable := getTables(feeds, app, cmdInput)
+	helpText := tview.NewTextView().SetText(HELPTEXT)
 
 	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, true) // postTable true so it is focused when press Esc in cmdInput
 	mainFlex.SetDirection(tview.FlexRow)
-	mainFlex.AddItem(tablesFlex, 0, 1, false).AddItem(cmdInput, 1, 0, false)
+	mainFlex.AddItem(tablesFlex, 0, 1, false).AddItem(helpText, 1, 0, false).AddItem(cmdInput, 1, 0, false)
 
 	renderFeedsTable(feeds, feedsTable)
 	renderPostsTable(postsTable, feeds[0]) // show first feed posts at start
