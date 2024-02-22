@@ -59,7 +59,7 @@ func getTables(feeds []Feed, app *tview.Application, cmdInput *tview.InputField)
 }
 
 func getInputField(app *tview.Application) *tview.InputField {
-	inputField := tview.NewInputField().SetLabel("Test: ").SetFieldWidth(10)
+	inputField := tview.NewInputField().SetLabel("Test: ").SetFieldWidth(30)
 
 	inputField.SetDoneFunc(func(key tcell.Key) {
 		if key == tcell.KeyEnter && len(inputField.GetText()) > 0 {
@@ -96,7 +96,6 @@ func renderPostsTable(postsTable *tview.Table, feed Feed) {
 }
 
 func view(feeds []Feed) {
-
 	app := tview.NewApplication()
 	cmdInput := getInputField(app)
 	feedsTable, postsTable := getTables(feeds, app, cmdInput)
