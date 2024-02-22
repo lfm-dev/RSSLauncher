@@ -82,8 +82,17 @@ func setupCommandInput(feeds []Feed) {
 			command := strings.Split(
 				strings.Replace(commandInput.GetText(), "%url", postUrl, 1),
 				" ")
-			cmd := exec.Command(command[0], command[1:]...) // TEST
-			cmd.Run()
+
+			helpText.SetText("Running command...") //TODO fix
+
+			cmd := exec.Command(command[0], command[1:]...)
+			err := cmd.Run()
+
+			if err != nil {
+				helpText.SetText("ERROR")
+			} else {
+				helpText.SetText("Done!")
+			}
 		}
 	})
 }
