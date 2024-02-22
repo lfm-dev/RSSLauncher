@@ -22,7 +22,8 @@ func getTables(feeds []Feed, app *tview.Application, cmdInput *tview.InputField)
 	postsTable := tview.NewTable().SetSelectable(true, false)
 
 	feedsTable.SetDoneFunc(func(key tcell.Key) {
-		if key == tcell.KeyEscape {
+		switch key {
+		case tcell.KeyEscape:
 			app.Stop()
 		}
 	})
@@ -36,10 +37,11 @@ func getTables(feeds []Feed, app *tview.Application, cmdInput *tview.InputField)
 	})
 
 	postsTable.SetDoneFunc(func(key tcell.Key) {
-		if key == tcell.KeyEscape {
-			app.SetFocus(feedsTable)
-		} else if key == tcell.KeyTab {
+		switch key {
+		case tcell.KeyTab:
 			app.SetFocus(cmdInput)
+		case tcell.KeyEscape:
+			app.SetFocus(feedsTable)
 		}
 	})
 
