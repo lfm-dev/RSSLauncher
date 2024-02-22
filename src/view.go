@@ -13,8 +13,6 @@ var (
 	tablesFlex = tview.NewFlex()
 )
 
-const BROWSER = "firefox"
-
 func getTables(feeds []Feed, app *tview.Application, cmdInput *tview.InputField) (*tview.Table, *tview.Table) {
 	feedsTable := tview.NewTable().SetSelectable(true, false)
 	postsTable := tview.NewTable().SetSelectable(true, false)

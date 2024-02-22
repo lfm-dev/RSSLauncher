@@ -11,8 +11,6 @@ import (
 )
 
 func getFeedsUrl() []string {
-	homePath, _ := os.UserHomeDir()
-	feedsFilePath := homePath + "/.config/RSS/feeds.txt"
 	feeds, err := os.ReadFile(feedsFilePath)
 	if err != nil {
 		panic(err)
