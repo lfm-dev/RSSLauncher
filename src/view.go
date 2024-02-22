@@ -8,19 +8,24 @@ import (
 	"github.com/rivo/tview"
 )
 
-var (
-	mainFlex   = tview.NewFlex()
-	tablesFlex = tview.NewFlex()
-)
-
 const (
 	HELPTEXT = "Open in browser: Enter / Run command: TAB / Quit | Return: Esc"
 )
 
-func getTables(feeds []Feed, app *tview.Application, cmdInput *tview.InputField) (*tview.Table, *tview.Table) {
-	feedsTable := tview.NewTable().SetSelectable(true, false)
-	postsTable := tview.NewTable().SetSelectable(true, false)
+var (
+	app = tview.NewApplication()
 
+	feedsTable = tview.NewTable().SetSelectable(true, false)
+	postsTable = tview.NewTable().SetSelectable(true, false)
+
+	commandInput = tview.NewInputField().SetLabel("Test: ").SetFieldWidth(30)
+	helpText     = tview.NewTextView().SetText(HELPTEXT)
+
+	mainFlex   = tview.NewFlex()
+	tablesFlex = tview.NewFlex()
+)
+
+func setupFeedsTable(feeds []Feed) {
 	feedsTable.SetDoneFunc(func(key tcell.Key) {
 		switch key {
 		case tcell.KeyEscape:
@@ -35,11 +40,13 @@ func getTables(feeds []Feed, app *tview.Application, cmdInput *tview.InputField)
 	feedsTable.SetSelectionChangedFunc(func(feedIndex int, _ int) {
 		renderPostsTable(postsTable, feeds[feedIndex])
 	})
+}
 
+func setupPostsTable(feeds []Feed) {
 	postsTable.SetDoneFunc(func(key tcell.Key) {
 		switch key {
 		case tcell.KeyTab:
-			app.SetFocus(cmdInput)
+			app.SetFocus(commandInput)
 		case tcell.KeyEscape:
 			app.SetFocus(feedsTable)
 		}
@@ -54,27 +61,21 @@ func getTables(feeds []Feed, app *tview.Application, cmdInput *tview.InputField)
 
 	feedsTable.SetBorder(true)
 	postsTable.SetBorder(true)
-
-	return feedsTable, postsTable
 }
 
-func getInputField(app *tview.Application) *tview.InputField {
-	inputField := tview.NewInputField().SetLabel("Test: ").SetFieldWidth(30)
-
-	inputField.SetDoneFunc(func(key tcell.Key) {
-		if key == tcell.KeyEnter && len(inputField.GetText()) > 0 {
-			cmd := exec.Command("firefox", inputField.GetText()) // TEST
+func setupCommandInput() {
+	commandInput.SetDoneFunc(func(key tcell.Key) {
+		if key == tcell.KeyEnter && len(commandInput.GetText()) > 0 {
+			cmd := exec.Command("firefox", commandInput.GetText()) // TEST
 			cmd.Run()
-			inputField.SetText("")
+			commandInput.SetText("")
 			app.SetFocus(tablesFlex)
 		}
 		if key == tcell.KeyEscape {
-			inputField.SetText("")
+			commandInput.SetText("")
 			app.SetFocus(tablesFlex)
 		}
 	})
-
-	return inputField
 }
 
 func renderFeedsTable(feeds []Feed, feedsTable *tview.Table) {
@@ -95,16 +96,14 @@ func renderPostsTable(postsTable *tview.Table, feed Feed) {
 	}
 }
 
-//TODO make fn to set up every component
 func view(feeds []Feed) {
-	app := tview.NewApplication()
-	cmdInput := getInputField(app)
-	feedsTable, postsTable := getTables(feeds, app, cmdInput)
-	helpText := tview.NewTextView().SetText(HELPTEXT)
+	setupFeedsTable(feeds)
+	setupPostsTable(feeds)
+	setupCommandInput()
 
 	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, true) // postTable true so it is focused when press Esc in cmdInput
 	mainFlex.SetDirection(tview.FlexRow)
-	mainFlex.AddItem(tablesFlex, 0, 1, false).AddItem(helpText, 1, 0, false).AddItem(cmdInput, 1, 0, false)
+	mainFlex.AddItem(tablesFlex, 0, 1, false).AddItem(helpText, 1, 0, false).AddItem(commandInput, 1, 0, false)
 
 	renderFeedsTable(feeds, feedsTable)
 	renderPostsTable(postsTable, feeds[0]) // show first feed posts at start
