@@ -8,6 +8,17 @@ import (
 	"github.com/mmcdole/gofeed"
 )
 
+func getFeedsUrl() []string {
+	homePath, _ := os.UserHomeDir()
+	feedsFilePath := homePath + "/.config/RSS/feeds.txt"
+	feeds, err := os.ReadFile(feedsFilePath)
+	if err != nil {
+		panic(err)
+	}
+	feedsUrls := strings.Split(strings.TrimSpace(string(feeds)), "\n")
+	return feedsUrls
+}
+
 func getFeeds(feedsUrls []string) []Feed {
 	feeds := make([]Feed, 0)
 
@@ -30,15 +41,4 @@ func getFeeds(feedsUrls []string) []Feed {
 	}
 
 	return feeds
-}
-
-func getFeedsUrl() []string {
-	homePath, _ := os.UserHomeDir()
-	feedsFilePath := homePath + "/.config/RSS/feeds.txt"
-	feeds, err := os.ReadFile(feedsFilePath)
-	if err != nil {
-		panic(err)
-	}
-	feedsUrls := strings.Split(strings.TrimSpace(string(feeds)), "\n")
-	return feedsUrls
 }
