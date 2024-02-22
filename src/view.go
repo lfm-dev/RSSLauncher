@@ -73,7 +73,7 @@ func setupCommandInput() {
 		}
 		if key == tcell.KeyEscape {
 			commandInput.SetText("")
-			app.SetFocus(tablesFlex)
+			app.SetFocus(postsTable)
 		}
 	})
 }
@@ -101,7 +101,7 @@ func view(feeds []Feed) {
 	setupPostsTable(feeds)
 	setupCommandInput()
 
-	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, true) // postTable true so it is focused when press Esc in cmdInput
+	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, false)
 	mainFlex.SetDirection(tview.FlexRow)
 	mainFlex.AddItem(tablesFlex, 0, 1, false).AddItem(helpText, 1, 0, false).AddItem(commandInput, 1, 0, false)
 
