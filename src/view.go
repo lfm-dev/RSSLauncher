@@ -79,9 +79,10 @@ func setupCommandInput(feeds []Feed) {
 
 		if key == tcell.KeyEnter && len(commandInput.GetText()) > 0 {
 			postUrl := getPostUrl(feeds)
-			command := strings.Replace(commandInput.GetText(), "%url", postUrl, 1)
-			splitCommand := strings.Split(command, " ")
-			cmd := exec.Command(splitCommand[0], splitCommand[1:]...) // TEST
+			command := strings.Split(
+				strings.Replace(commandInput.GetText(), "%url", postUrl, 1),
+				" ")
+			cmd := exec.Command(command[0], command[1:]...) // TEST
 			cmd.Run()
 		}
 	})
