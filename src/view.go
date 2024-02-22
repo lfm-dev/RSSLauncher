@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os/exec"
+	"strings"
 
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
@@ -63,13 +64,19 @@ func setupPostsTable(feeds []Feed) {
 	postsTable.SetBorder(true)
 }
 
-func setupCommandInput() {
+func setupCommandInput(feeds []Feed) {
 	commandInput.SetDoneFunc(func(key tcell.Key) {
 		if key == tcell.KeyEnter && len(commandInput.GetText()) > 0 {
-			cmd := exec.Command("firefox", commandInput.GetText()) // TEST
+			feedIndex, _ := feedsTable.GetSelection()
+			postIndex, _ := postsTable.GetSelection()
+			postUrl := feeds[feedIndex].items[postIndex].url
+
+			command := strings.Replace(commandInput.GetText(), "%url", postUrl, 1)
+			splitCommand := strings.Split(command, " ")
+			cmd := exec.Command(splitCommand[0], splitCommand[1:]...) // TEST
 			cmd.Run()
 			commandInput.SetText("")
-			app.SetFocus(tablesFlex)
+			app.SetFocus(postsTable)
 		}
 		if key == tcell.KeyEscape {
 			commandInput.SetText("")
@@ -99,7 +106,7 @@ func renderPostsTable(postsTable *tview.Table, feed Feed) {
 func view(feeds []Feed) {
 	setupFeedsTable(feeds)
 	setupPostsTable(feeds)
-	setupCommandInput()
+	setupCommandInput(feeds)
 
 	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, false)
 	mainFlex.SetDirection(tview.FlexRow)
