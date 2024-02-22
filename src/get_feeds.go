@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/mmcdole/gofeed"
+	"github.com/schollz/progressbar/v3"
 )
 
 func getFeedsUrl() []string {
@@ -20,6 +21,8 @@ func getFeedsUrl() []string {
 }
 
 func getFeeds(feedsUrls []string) []Feed {
+	fmt.Printf("Updating %d feeds...\n", len(feedsUrls))
+	progressBar := progressbar.Default(int64(len(feedsUrls)))
 	feeds := make([]Feed, 0)
 
 	feedParser := gofeed.NewParser()
@@ -38,6 +41,7 @@ func getFeeds(feedsUrls []string) []Feed {
 			items:      feedItems,
 		}
 		feeds = append(feeds, feed)
+		progressBar.Add(1)
 	}
 
 	return feeds
