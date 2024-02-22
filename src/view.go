@@ -53,9 +53,9 @@ func setupPostsTable(feeds []Feed) {
 		}
 	})
 
-	postsTable.SetSelectedFunc(func(itemIndex int, _ int) {
-		feedIndex, _ := feedsTable.GetSelection()
-		cmd := exec.Command(BROWSER, feeds[feedIndex].items[itemIndex].url)
+	postsTable.SetSelectedFunc(func(_ int, _ int) {
+		postUrl := getPostUrl(feeds)
+		cmd := exec.Command(BROWSER, postUrl)
 		cmd.Run()
 		app.SetFocus(postsTable)
 	})
@@ -64,23 +64,25 @@ func setupPostsTable(feeds []Feed) {
 	postsTable.SetBorder(true)
 }
 
+func getPostUrl(feeds []Feed) string {
+	feedIndex, _ := feedsTable.GetSelection()
+	postIndex, _ := postsTable.GetSelection()
+	postUrl := feeds[feedIndex].items[postIndex].url
+
+	return postUrl
+}
+
 func setupCommandInput(feeds []Feed) {
 	commandInput.SetDoneFunc(func(key tcell.Key) {
-		if key == tcell.KeyEnter && len(commandInput.GetText()) > 0 {
-			feedIndex, _ := feedsTable.GetSelection()
-			postIndex, _ := postsTable.GetSelection()
-			postUrl := feeds[feedIndex].items[postIndex].url
+		defer commandInput.SetText("")
+		defer app.SetFocus(postsTable)
 
+		if key == tcell.KeyEnter && len(commandInput.GetText()) > 0 {
+			postUrl := getPostUrl(feeds)
 			command := strings.Replace(commandInput.GetText(), "%url", postUrl, 1)
 			splitCommand := strings.Split(command, " ")
 			cmd := exec.Command(splitCommand[0], splitCommand[1:]...) // TEST
 			cmd.Run()
-			commandInput.SetText("")
-			app.SetFocus(postsTable)
-		}
-		if key == tcell.KeyEscape {
-			commandInput.SetText("")
-			app.SetFocus(postsTable)
 		}
 	})
 }
