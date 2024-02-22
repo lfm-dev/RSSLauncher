@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"strings"
 
@@ -83,16 +84,11 @@ func setupCommandInput(feeds []Feed) {
 				strings.Replace(commandInput.GetText(), "%url", postUrl, 1),
 				" ")
 
-			helpText.SetText("Running command...") //TODO fix
-
 			cmd := exec.Command(command[0], command[1:]...)
-			err := cmd.Run()
-
-			if err != nil {
-				helpText.SetText("ERROR")
-			} else {
-				helpText.SetText("Done!")
-			}
+			cmd.Stderr = os.Stderr
+			cmd.Stdout = os.Stdout
+			cmd.Run()
+			app.Sync() // fix screen
 		}
 	})
 }
@@ -119,6 +115,10 @@ func view(feeds []Feed) {
 	setupFeedsTable(feeds)
 	setupPostsTable(feeds)
 	setupCommandInput(feeds)
+
+	helpText.SetChangedFunc(func() {
+		app.Draw()
+	})
 
 	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, false)
 	mainFlex.SetDirection(tview.FlexRow)
