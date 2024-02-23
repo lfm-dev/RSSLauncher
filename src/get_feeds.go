@@ -13,6 +13,9 @@ import (
 func getFeedItems(goFeed *gofeed.Feed) []FeedItem {
 	feedItems := make([]FeedItem, 0)
 	for _, item := range goFeed.Items {
+		if postHasIgnoredWord(item.Title) {
+			continue
+		}
 		feedItem := FeedItem{
 			url:          item.Link,
 			title:        item.Title,
