@@ -8,7 +8,7 @@ import (
 func getWordsToIgnore() []string {
 	ignoreFile, err := os.ReadFile(ignoreFilePath)
 	if err != nil {
-		panic(err)
+		return make([]string, 0)
 	}
 	wordsToIgnore := strings.Split(strings.TrimSpace(string(ignoreFile)), "\n")
 	return wordsToIgnore
