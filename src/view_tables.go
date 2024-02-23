@@ -23,4 +23,5 @@ func renderPostsTable(postsTable *tview.Table, feed Feed) {
 		postsTable.SetCell(i, 0,
 			tview.NewTableCell(postLine))
 	}
+	postsTable.Select(0, 0)
 }
