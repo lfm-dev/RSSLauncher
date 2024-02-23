@@ -19,6 +19,7 @@ func getFeedsUrl() []string {
 	return feedsUrls
 }
 
+//TODO can you update feeds with goroutines?
 func getFeeds(feedsUrls []string) []Feed {
 	fmt.Printf("Updating %d feeds...\n", len(feedsUrls))
 	progressBar := progressbar.Default(int64(len(feedsUrls)))
