@@ -1,10 +1,7 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"os"
-	"strings"
 	"time"
 
 	"github.com/mmcdole/gofeed"
@@ -27,15 +24,6 @@ func getFeedItems(goFeed *gofeed.Feed) []FeedItem {
 	}
 
 	return feedItems
-}
-
-func getFeedsUrls() []string {
-	feeds, err := os.ReadFile(feedsFilePath)
-	if err != nil {
-		panic(errors.New("Can't read feeds.txt"))
-	}
-	feedsUrls := strings.Split(strings.TrimSpace(string(feeds)), "\n")
-	return feedsUrls
 }
 
 //TODO can you update feeds with goroutines?

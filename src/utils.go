@@ -1,9 +1,19 @@
 package main
 
 import (
+	"errors"
 	"os"
 	"strings"
 )
+
+func getFeedsUrls() []string {
+	feeds, err := os.ReadFile(feedsFilePath)
+	if err != nil {
+		panic(errors.New("can't read feeds.txt"))
+	}
+	feedsUrls := strings.Split(strings.TrimSpace(string(feeds)), "\n")
+	return feedsUrls
+}
 
 func getWordsToIgnore() []string {
 	ignoreFile, err := os.ReadFile(ignoreFilePath)
