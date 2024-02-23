@@ -14,7 +14,6 @@ const (
 )
 
 func main() {
-	feedsUrls := getFeedsUrl()
-	feeds := getFeeds(feedsUrls)
+	feeds := getFeeds()
 	view(feeds)
 }

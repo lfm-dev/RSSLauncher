@@ -10,7 +10,22 @@ import (
 	"github.com/schollz/progressbar/v3"
 )
 
-func getFeedsUrl() []string {
+func getFeedItems(goFeed *gofeed.Feed) []FeedItem {
+	feedItems := make([]FeedItem, 0)
+	for _, item := range goFeed.Items {
+		feedItem := FeedItem{
+			url:          item.Link,
+			title:        item.Title,
+			date:         *item.PublishedParsed,
+			dateFormated: item.PublishedParsed.Format("02-01-2006"),
+		}
+		feedItems = append(feedItems, feedItem)
+	}
+
+	return feedItems
+}
+
+func getFeedsUrls() []string {
 	feeds, err := os.ReadFile(feedsFilePath)
 	if err != nil {
 		panic(err)
@@ -20,7 +35,8 @@ func getFeedsUrl() []string {
 }
 
 //TODO can you update feeds with goroutines?
-func getFeeds(feedsUrls []string) []Feed {
+func getFeeds() []Feed {
+	feedsUrls := getFeedsUrls()
 	fmt.Printf("Updating %d feeds...\n", len(feedsUrls))
 	progressBar := progressbar.Default(int64(len(feedsUrls)))
 	feeds := make([]Feed, 0)
