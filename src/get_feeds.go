@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -31,7 +32,7 @@ func getFeedItems(goFeed *gofeed.Feed) []FeedItem {
 func getFeedsUrls() []string {
 	feeds, err := os.ReadFile(feedsFilePath)
 	if err != nil {
-		panic(err)
+		panic(errors.New("Can't read feeds.txt"))
 	}
 	feedsUrls := strings.Split(strings.TrimSpace(string(feeds)), "\n")
 	return feedsUrls
