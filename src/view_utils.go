@@ -7,3 +7,10 @@ func getPostUrl(feeds []Feed) string {
 
 	return postUrl
 }
+
+func getFeedUrl(feeds []Feed) string {
+	feedIndex, _ := feedsTable.GetSelection()
+	postUrl := feeds[feedIndex].url
+
+	return postUrl
+}

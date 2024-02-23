@@ -9,7 +9,6 @@ import (
 	"github.com/rivo/tview"
 )
 
-//TODO press enter to go to feed website
 func setupFeedsTable(feeds []Feed) {
 	feedsTable.SetDoneFunc(func(key tcell.Key) {
 		switch key {
@@ -18,12 +17,23 @@ func setupFeedsTable(feeds []Feed) {
 		}
 	})
 
+	feedsTable.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyRight {
+			app.SetFocus(postsTable)
+			return nil
+		}
+		return event
+	})
+
 	feedsTable.SetSelectedFunc(func(_ int, _ int) {
-		app.SetFocus(postsTable)
+		feedUrl := getFeedUrl(feeds)
+		cmd := exec.Command(BROWSER, feedUrl)
+		cmd.Run()
 	})
 
 	feedsTable.SetSelectionChangedFunc(func(feedIndex int, _ int) {
 		renderPostsTable(postsTable, feeds[feedIndex])
+		postsTable.ScrollToBeginning()
 	})
 }
 
@@ -33,15 +43,22 @@ func setupPostsTable(feeds []Feed) {
 		case tcell.KeyTab:
 			app.SetFocus(commandInput)
 		case tcell.KeyEscape:
-			app.SetFocus(feedsTable)
+			app.Stop()
 		}
+	})
+
+	postsTable.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyLeft {
+			app.SetFocus(feedsTable)
+			return nil
+		}
+		return event
 	})
 
 	postsTable.SetSelectedFunc(func(_ int, _ int) {
 		postUrl := getPostUrl(feeds)
 		cmd := exec.Command(BROWSER, postUrl)
 		cmd.Run()
-		app.SetFocus(postsTable)
 	})
 
 	feedsTable.SetBorder(true)

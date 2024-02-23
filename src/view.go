@@ -12,7 +12,7 @@ var (
 
 	commandInput = tview.NewInputField().SetLabel("Command: ").SetFieldWidth(30)
 	helpText     = tview.NewTextView().SetText(
-		"Open in browser: Enter / Run command: TAB / Quit | Return: Esc",
+		"Open in browser: Enter / Run command: TAB / Quit: Esc",
 	)
 
 	mainFlex   = tview.NewFlex()
