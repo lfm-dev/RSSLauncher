@@ -27,8 +27,11 @@ func setupFeedsTable(feeds []Feed) {
 
 	feedsTable.SetSelectedFunc(func(_ int, _ int) {
 		feedUrl := getFeedUrl(feeds)
-		cmd := exec.Command(BROWSER, feedUrl)
-		cmd.Run()
+
+		if len(feedUrl) > 0 { // only if feed has a web url
+			cmd := exec.Command(BROWSER, feedUrl)
+			cmd.Run()
+		}
 	})
 
 	feedsTable.SetSelectionChangedFunc(func(feedIndex int, _ int) {
