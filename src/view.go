@@ -20,7 +20,7 @@ var (
 	feedsTable = tview.NewTable().SetSelectable(true, false)
 	postsTable = tview.NewTable().SetSelectable(true, false)
 
-	commandInput = tview.NewInputField().SetLabel("Test: ").SetFieldWidth(30)
+	commandInput = tview.NewInputField().SetLabel("Command: ").SetFieldWidth(30)
 	helpText     = tview.NewTextView().SetText(HELPTEXT)
 
 	mainFlex   = tview.NewFlex()
