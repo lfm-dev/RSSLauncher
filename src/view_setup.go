@@ -9,6 +9,7 @@ import (
 	"github.com/rivo/tview"
 )
 
+//TODO press enter to go to feed website
 func setupFeedsTable(feeds []Feed) {
 	feedsTable.SetDoneFunc(func(key tcell.Key) {
 		switch key {
