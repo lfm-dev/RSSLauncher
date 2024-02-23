@@ -42,7 +42,7 @@ func getFeeds() []Feed {
 	feeds := make([]Feed, 0)
 
 	feedParser := gofeed.NewParser()
-	for i, feedUrl := range feedsUrls {
+	for _, feedUrl := range feedsUrls {
 		goFeed, err := feedParser.ParseURL(feedUrl)
 		if err != nil {
 			fmt.Printf("\nError: Can't get %s data\n", feedUrl)
@@ -52,7 +52,8 @@ func getFeeds() []Feed {
 
 		feedItems := getFeedItems(goFeed)
 		feed := Feed{
-			url:        feedsUrls[i],
+			feedUrl:    goFeed.FeedLink,
+			url:        goFeed.Link,
 			name:       goFeed.Title,
 			lastUpdate: feedItems[0].date, // date of newest post
 			items:      feedItems,

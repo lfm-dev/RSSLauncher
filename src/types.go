@@ -3,6 +3,7 @@ package main
 import "time"
 
 type Feed struct {
+	feedUrl    string
 	url        string
 	name       string
 	lastUpdate time.Time
