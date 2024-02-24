@@ -9,7 +9,7 @@ import (
 func renderFeedsTable(feeds []Feed, feedsTable *tview.Table) {
 	for i, feed := range feeds {
 		feedsTable.SetCell(i, 0,
-			tview.NewTableCell(feed.name))
+			tview.NewTableCell(feed.name).SetReference(feed))
 	}
 }
 
