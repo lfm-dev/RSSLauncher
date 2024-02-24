@@ -96,6 +96,7 @@ func setupUI(feeds []Feed) {
 	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, false)
 
 	mainFlex.SetDirection(tview.FlexRow).AddItem(tablesFlex, 0, 1, false).AddItem(helpText, 1, 0, false).AddItem(commandInput, 1, 0, false)
+
 	renderFeedsTable(feeds)
 	renderPostsTable()
 }
