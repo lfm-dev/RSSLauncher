@@ -55,9 +55,14 @@ func setupItemsTable() {
 			return nil
 
 		case tcell.KeyEnter:
+			markItemAsRead()
 			itemUrl := getItemData().url
 			cmd := exec.Command(BROWSER, itemUrl)
 			cmd.Run()
+			return nil
+
+		case tcell.KeyCtrlR:
+			markItemAsRead()
 			return nil
 
 		case tcell.KeyTab:

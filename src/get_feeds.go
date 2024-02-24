@@ -19,6 +19,7 @@ func getFeedItems(goFeed *gofeed.Feed) []FeedItem {
 			title:        item.Title,
 			date:         *item.PublishedParsed,
 			dateFormated: item.PublishedParsed.Format("02-01-2006"),
+			read:         false, // for now
 		}
 		feedItems = append(feedItems, feedItem)
 	}

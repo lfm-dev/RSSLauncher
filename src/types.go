@@ -15,4 +15,5 @@ type FeedItem struct {
 	title        string
 	date         time.Time
 	dateFormated string
+	read         bool
 }
