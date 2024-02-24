@@ -19,7 +19,7 @@ func renderPostsTable() {
 	for i, post := range feedItems {
 		postLine := fmt.Sprintf("(%s) %s", post.dateFormated, post.title)
 		postsTable.SetCell(i, 0,
-			tview.NewTableCell(postLine))
+			tview.NewTableCell(postLine).SetReference(post))
 	}
 	postsTable.Select(0, 0)
 }

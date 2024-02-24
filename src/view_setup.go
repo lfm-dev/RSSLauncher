@@ -63,7 +63,7 @@ func setupPostsTable(feeds []Feed) {
 	})
 
 	postsTable.SetSelectedFunc(func(_ int, _ int) {
-		postUrl := getPostUrl(feeds)
+		postUrl := getPostData().url
 		cmd := exec.Command(BROWSER, postUrl)
 		cmd.Run()
 	})
@@ -78,7 +78,7 @@ func setupCommandInput(feeds []Feed) {
 		defer app.SetFocus(postsTable)
 
 		if key == tcell.KeyEnter && len(commandInput.GetText()) > 0 {
-			postUrl := getPostUrl(feeds)
+			postUrl := getPostData().url
 			command := strings.Split(
 				strings.Replace(commandInput.GetText(), "%url", postUrl, 1),
 				" ")

@@ -8,10 +8,10 @@ func getFeedData() Feed {
 	return feed
 }
 
-func getPostUrl(feeds []Feed) string {
-	feedIndex, _ := feedsTable.GetSelection()
+func getPostData() FeedItem {
 	postIndex, _ := postsTable.GetSelection()
-	postUrl := feeds[feedIndex].items[postIndex].url
+	cellRef := postsTable.GetCell(postIndex, 0).GetReference()
+	post := cellRef.(FeedItem)
 
-	return postUrl
+	return post
 }
