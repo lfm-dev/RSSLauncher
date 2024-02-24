@@ -10,6 +10,8 @@ import (
 )
 
 func setupFeedsTable(feeds []Feed) {
+	feedsTable.SetTitle("Feeds")
+
 	feedsTable.SetDoneFunc(func(key tcell.Key) {
 		switch key {
 		case tcell.KeyEscape:
@@ -41,6 +43,8 @@ func setupFeedsTable(feeds []Feed) {
 }
 
 func setupPostsTable(feeds []Feed) {
+	postsTable.SetTitle("Posts")
+
 	postsTable.SetDoneFunc(func(key tcell.Key) {
 		switch key {
 		case tcell.KeyTab:
