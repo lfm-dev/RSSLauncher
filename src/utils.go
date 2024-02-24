@@ -24,7 +24,7 @@ func getWordsToIgnore() []string {
 	return wordsToIgnore
 }
 
-func postHasIgnoredWord(title string) bool {
+func itemHasIgnoredWord(title string) bool {
 	for _, word := range wordsToIgnore {
 		if strings.Contains(title, word) {
 			return true

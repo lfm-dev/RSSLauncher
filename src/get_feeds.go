@@ -11,7 +11,7 @@ import (
 func getFeedItems(goFeed *gofeed.Feed) []FeedItem {
 	feedItems := make([]FeedItem, 0)
 	for _, item := range goFeed.Items {
-		if postHasIgnoredWord(item.Title) {
+		if itemHasIgnoredWord(item.Title) {
 			continue
 		}
 		feedItem := FeedItem{
@@ -46,7 +46,7 @@ func getFeeds() []Feed {
 			feedUrl:    goFeed.FeedLink,
 			url:        goFeed.Link,
 			name:       goFeed.Title,
-			lastUpdate: feedItems[0].date, // date of newest post
+			lastUpdate: feedItems[0].date, // date of newest item
 			items:      feedItems,
 		}
 

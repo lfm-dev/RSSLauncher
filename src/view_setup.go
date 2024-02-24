@@ -17,7 +17,7 @@ func setupFeedsTable() {
 		switch event.Key() {
 
 		case tcell.KeyRight:
-			app.SetFocus(postsTable)
+			app.SetFocus(itemsTable)
 			return nil
 
 		case tcell.KeyEnter:
@@ -38,15 +38,15 @@ func setupFeedsTable() {
 	})
 
 	feedsTable.SetSelectionChangedFunc(func(_ int, _ int) {
-		renderPostsTable()
-		postsTable.ScrollToBeginning()
+		renderItemsTable()
+		itemsTable.ScrollToBeginning()
 	})
 }
 
-func setupPostsTable() {
-	postsTable.SetTitle("Posts")
+func setupItemsTable() {
+	itemsTable.SetTitle("Items")
 
-	postsTable.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+	itemsTable.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 
 		switch event.Key() {
 
@@ -55,8 +55,8 @@ func setupPostsTable() {
 			return nil
 
 		case tcell.KeyEnter:
-			postUrl := getPostData().url
-			cmd := exec.Command(BROWSER, postUrl)
+			itemUrl := getItemData().url
+			cmd := exec.Command(BROWSER, itemUrl)
 			cmd.Run()
 			return nil
 
@@ -78,12 +78,12 @@ func setupPostsTable() {
 func setupCommandInput() {
 	commandInput.SetDoneFunc(func(key tcell.Key) {
 		defer commandInput.SetText("")
-		defer app.SetFocus(postsTable)
+		defer app.SetFocus(itemsTable)
 
 		if key == tcell.KeyEnter && len(commandInput.GetText()) > 0 {
-			postUrl := getPostData().url
+			itemUrl := getItemData().url
 			command := strings.Split(
-				strings.Replace(commandInput.GetText(), "%url", postUrl, 1),
+				strings.Replace(commandInput.GetText(), "%url", itemUrl, 1),
 				" ")
 
 			cmd := exec.Command(command[0], command[1:]...)
@@ -96,13 +96,13 @@ func setupCommandInput() {
 }
 
 func setupUI(feeds []Feed) {
-	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, false)
+	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(itemsTable, 0, 3, false)
 
 	mainFlex.SetDirection(tview.FlexRow).AddItem(tablesFlex, 0, 1, false).AddItem(helpText, 1, 0, false).AddItem(commandInput, 1, 0, false)
 
 	feedsTable.SetBorder(true)
-	postsTable.SetBorder(true)
+	itemsTable.SetBorder(true)
 
 	renderFeedsTable(feeds)
-	renderPostsTable()
+	renderItemsTable()
 }

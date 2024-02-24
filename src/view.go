@@ -8,7 +8,7 @@ var (
 	app = tview.NewApplication()
 
 	feedsTable = tview.NewTable().SetSelectable(true, false)
-	postsTable = tview.NewTable().SetSelectable(true, false)
+	itemsTable = tview.NewTable().SetSelectable(true, false)
 
 	commandInput = tview.NewInputField().SetLabel("Command: ").SetFieldWidth(30)
 	helpText     = tview.NewTextView().SetText(
@@ -21,7 +21,7 @@ var (
 
 func view(feeds []Feed) {
 	setupFeedsTable()
-	setupPostsTable()
+	setupItemsTable()
 	setupCommandInput()
 	setupUI(feeds)
 

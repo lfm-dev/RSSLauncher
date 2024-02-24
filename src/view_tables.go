@@ -13,13 +13,13 @@ func renderFeedsTable(feeds []Feed) {
 	}
 }
 
-func renderPostsTable() {
-	postsTable.Clear()
+func renderItemsTable() {
+	itemsTable.Clear()
 	feedItems := getFeedData().items
-	for i, post := range feedItems {
-		postLine := fmt.Sprintf("(%s) %s", post.dateFormated, post.title)
-		postsTable.SetCell(i, 0,
-			tview.NewTableCell(postLine).SetReference(post))
+	for i, item := range feedItems {
+		itemTitle := fmt.Sprintf("(%s) %s", item.dateFormated, item.title)
+		itemsTable.SetCell(i, 0,
+			tview.NewTableCell(itemTitle).SetReference(item))
 	}
-	postsTable.Select(0, 0)
+	itemsTable.Select(0, 0)
 }
