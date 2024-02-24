@@ -20,9 +20,9 @@ var (
 )
 
 func view(feeds []Feed) {
-	setupFeedsTable(feeds)
-	setupPostsTable(feeds)
-	setupCommandInput(feeds)
+	setupFeedsTable()
+	setupPostsTable()
+	setupCommandInput()
 	setupUI(feeds)
 
 	if err := app.SetRoot(mainFlex, true).SetFocus(feedsTable).Run(); err != nil {

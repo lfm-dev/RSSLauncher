@@ -9,7 +9,7 @@ import (
 	"github.com/rivo/tview"
 )
 
-func setupFeedsTable(feeds []Feed) {
+func setupFeedsTable() {
 	feedsTable.SetTitle("Feeds")
 
 	feedsTable.SetDoneFunc(func(key tcell.Key) {
@@ -42,7 +42,7 @@ func setupFeedsTable(feeds []Feed) {
 	})
 }
 
-func setupPostsTable(feeds []Feed) {
+func setupPostsTable() {
 	postsTable.SetTitle("Posts")
 
 	postsTable.SetDoneFunc(func(key tcell.Key) {
@@ -72,7 +72,7 @@ func setupPostsTable(feeds []Feed) {
 	postsTable.SetBorder(true)
 }
 
-func setupCommandInput(feeds []Feed) {
+func setupCommandInput() {
 	commandInput.SetDoneFunc(func(key tcell.Key) {
 		defer commandInput.SetText("")
 		defer app.SetFocus(postsTable)
@@ -96,6 +96,6 @@ func setupUI(feeds []Feed) {
 	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(postsTable, 0, 3, false)
 
 	mainFlex.SetDirection(tview.FlexRow).AddItem(tablesFlex, 0, 1, false).AddItem(helpText, 1, 0, false).AddItem(commandInput, 1, 0, false)
-	renderFeedsTable(feeds, feedsTable)
+	renderFeedsTable(feeds)
 	renderPostsTable()
 }

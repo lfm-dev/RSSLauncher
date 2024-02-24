@@ -6,7 +6,7 @@ import (
 	"github.com/rivo/tview"
 )
 
-func renderFeedsTable(feeds []Feed, feedsTable *tview.Table) {
+func renderFeedsTable(feeds []Feed) {
 	for i, feed := range feeds {
 		feedsTable.SetCell(i, 0,
 			tview.NewTableCell(feed.name).SetReference(feed))
