@@ -28,7 +28,8 @@ func setupFeedsTable(feeds []Feed) {
 	})
 
 	feedsTable.SetSelectedFunc(func(_ int, _ int) {
-		feedUrl := getFeedUrl()
+		feedUrl := getFeedData().url
+
 		if len(feedUrl) > 0 { // only if feed has a web url
 			cmd := exec.Command(BROWSER, feedUrl)
 			cmd.Run()
@@ -36,7 +37,7 @@ func setupFeedsTable(feeds []Feed) {
 	})
 
 	feedsTable.SetSelectionChangedFunc(func(feedIndex int, _ int) {
-		renderPostsTable(postsTable, feeds[feedIndex])
+		renderPostsTable()
 		postsTable.ScrollToBeginning()
 	})
 }
@@ -96,5 +97,5 @@ func setupUI(feeds []Feed) {
 
 	mainFlex.SetDirection(tview.FlexRow).AddItem(tablesFlex, 0, 1, false).AddItem(helpText, 1, 0, false).AddItem(commandInput, 1, 0, false)
 	renderFeedsTable(feeds, feedsTable)
-	renderPostsTable(postsTable, feeds[0]) // show first feed posts at start
+	renderPostsTable()
 }

@@ -13,9 +13,10 @@ func renderFeedsTable(feeds []Feed, feedsTable *tview.Table) {
 	}
 }
 
-func renderPostsTable(postsTable *tview.Table, feed Feed) {
+func renderPostsTable() {
 	postsTable.Clear()
-	for i, post := range feed.items {
+	feedItems := getFeedData().items
+	for i, post := range feedItems {
 		postLine := fmt.Sprintf("(%s) %s", post.dateFormated, post.title)
 		postsTable.SetCell(i, 0,
 			tview.NewTableCell(postLine))
