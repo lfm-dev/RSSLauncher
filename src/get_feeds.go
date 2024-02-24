@@ -22,7 +22,6 @@ func getFeedItems(goFeed *gofeed.Feed) []FeedItem {
 		}
 		feedItems = append(feedItems, feedItem)
 	}
-
 	return feedItems
 }
 
@@ -38,7 +37,7 @@ func getFeeds() []Feed {
 		goFeed, err := feedParser.ParseURL(feedUrl)
 		if err != nil {
 			fmt.Printf("\nError: Can't get %s data\n", feedUrl)
-			time.Sleep(2000 * time.Millisecond)
+			time.Sleep(2000 * time.Millisecond) // so the user can read it
 			continue
 		}
 
@@ -53,6 +52,5 @@ func getFeeds() []Feed {
 		feeds = append(feeds, feed)
 		progressBar.Add(1)
 	}
-
 	return feeds
 }
