@@ -49,7 +49,11 @@ func getFeeds() []Feed {
 			lastUpdate: feedItems[0].date, // date of newest post
 			items:      feedItems,
 		}
-		feeds = append(feeds, feed)
+
+		if len(feed.items) > 0 { // only show feeds with new items
+			feeds = append(feeds, feed)
+		}
+
 		progressBar.Add(1)
 	}
 	return feeds
