@@ -95,7 +95,7 @@ func setupCommandInput() {
 			markItemAsRead()
 			itemUrl := getItemData().url
 			command := strings.Split(
-				strings.Replace(commandInput.GetText(), "%url", itemUrl, 1),
+				strings.Replace(commands[commandInput.GetText()], "%url", itemUrl, 1),
 				" ")
 
 			cmd := exec.Command(command[0], command[1:]...)
