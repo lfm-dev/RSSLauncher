@@ -15,6 +15,9 @@ func getCommandList() string {
 			commandList = append(commandList, command)
 		}
 	}
+	if len(commandList) == 0 {
+		return "no available commands, configure them on commands.csv"
+	}
 	return strings.Join(commandList, " / ")
 }
 
