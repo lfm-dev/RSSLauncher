@@ -18,9 +18,9 @@ var (
 	feedsTable = tview.NewTable().SetSelectable(true, false)
 	itemsTable = tview.NewTable().SetSelectable(true, false)
 
-	commandInput = tview.NewInputField().SetLabel("Command: ").SetFieldWidth(30)
+	commandInput = tview.NewInputField().SetLabel("Command: ").SetFieldWidth(40).SetPlaceholder("use %url for custom commands")
 	helpText     = tview.NewTextView().SetText(
-		"Open in browser: Enter / Run command: TAB / Quit: Esc",
+		"Open in browser: Enter / Run command: TAB / Mark as read: Ctrl+R / Quit: Esc",
 	)
 
 	mainFlex   = tview.NewFlex()

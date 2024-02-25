@@ -1,10 +1,6 @@
 package main
 
 import (
-	"os"
-	"os/exec"
-	"strings"
-
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
@@ -23,8 +19,7 @@ func setupFeedsTable() {
 		case tcell.KeyEnter:
 			feedUrl := getFeedData().url
 			if len(feedUrl) > 0 { // only if feed has a web url
-				cmd := exec.Command(BROWSER, feedUrl)
-				cmd.Run()
+				runCommand(feedUrl, commands["onEnter"])
 			}
 			return nil
 
@@ -61,11 +56,8 @@ func setupItemsTable() {
 		case tcell.KeyEnter:
 			markItemAsRead()
 			itemUrl := getItemData().url
-			command := strings.Split(
-				strings.Replace(commands["onEnter"], "%url", itemUrl, 1),
-				" ")
-			cmd := exec.Command(command[0], command[1:]...)
-			cmd.Run()
+			runCommand(itemUrl, commands["onEnter"])
+
 			return nil
 
 		case tcell.KeyCtrlR:
@@ -94,14 +86,11 @@ func setupCommandInput() {
 		if key == tcell.KeyEnter && len(commandInput.GetText()) > 0 {
 			markItemAsRead()
 			itemUrl := getItemData().url
-			command := strings.Split(
-				strings.Replace(commands[commandInput.GetText()], "%url", itemUrl, 1),
-				" ")
-
-			cmd := exec.Command(command[0], command[1:]...)
-			cmd.Stderr = os.Stderr
-			cmd.Stdout = os.Stdout
-			cmd.Run()
+			if command, ok := commands[commandInput.GetText()]; ok {
+				runCommand(itemUrl, command)
+			} else {
+				runCommand(itemUrl, commandInput.GetText()) // run custom command
+			}
 			app.Sync() // fix screen
 		}
 	})

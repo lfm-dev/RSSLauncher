@@ -1,6 +1,12 @@
 package main
 
-import "github.com/rivo/tview"
+import (
+	"os"
+	"os/exec"
+	"strings"
+
+	"github.com/rivo/tview"
+)
 
 func getSelectedCell(table *tview.Table) *tview.TableCell {
 	cellIndex, _ := table.GetSelection()
@@ -20,4 +26,14 @@ func getItemData() FeedItem {
 	item := cellRef.(FeedItem)
 
 	return item
+}
+
+func runCommand(url string, command string) {
+	cmd := strings.Split(
+		strings.Replace(command, "%url", url, 1),
+		" ")
+	process := exec.Command(cmd[0], cmd[1:]...)
+	process.Stderr = os.Stderr
+	process.Stdout = os.Stdout
+	process.Run()
 }
