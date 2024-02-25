@@ -17,7 +17,6 @@ func getFeedItems(goFeed *gofeed.Feed) []FeedItem {
 		feedItem := FeedItem{
 			url:          item.Link,
 			title:        item.Title,
-			date:         *item.PublishedParsed,
 			dateFormated: item.PublishedParsed.Format("02-01-2006"),
 			read:         false, // for now
 		}
@@ -44,11 +43,10 @@ func getFeeds() []Feed {
 
 		feedItems := getFeedItems(goFeed)
 		feed := Feed{
-			feedUrl:    goFeed.FeedLink,
-			url:        goFeed.Link,
-			name:       goFeed.Title,
-			lastUpdate: feedItems[0].date, // date of newest item
-			items:      feedItems,
+			feedUrl: goFeed.FeedLink,
+			url:     goFeed.Link,
+			name:    goFeed.Title,
+			items:   feedItems,
 		}
 
 		if len(feed.items) > 0 { // only show feeds with new items
