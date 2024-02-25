@@ -90,6 +90,7 @@ func setupCommandInput() {
 		defer app.SetFocus(itemsTable)
 
 		if key == tcell.KeyEnter && len(commandInput.GetText()) > 0 {
+			markItemAsRead()
 			itemUrl := getItemData().url
 			command := strings.Split(
 				strings.Replace(commandInput.GetText(), "%url", itemUrl, 1),
