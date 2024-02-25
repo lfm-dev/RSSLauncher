@@ -5,10 +5,12 @@ import (
 )
 
 var (
-	homePath, _    = os.UserHomeDir()
-	feedsFilePath  = homePath + "/.config/RSS/feeds.txt"
-	ignoreFilePath = homePath + "/.config/RSS/ignore.txt"
-	wordsToIgnore  = getWordsToIgnore()
+	homePath, _      = os.UserHomeDir()
+	feedsFilePath    = homePath + "/.config/RSS/feeds.txt"
+	ignoreFilePath   = homePath + "/.config/RSS/ignore.txt"
+	commandsFilePath = homePath + "/.config/RSS/commands.csv"
+	wordsToIgnore    = getWordsToIgnore()
+	commands         = getCommandList()
 )
 
 const (

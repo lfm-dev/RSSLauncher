@@ -6,6 +6,20 @@ import (
 	"strings"
 )
 
+func getCommandList() map[string]string {
+	commands := make(map[string]string)
+	commandsFileContent, err := os.ReadFile(commandsFilePath)
+	if err != nil {
+		panic(errors.New("can't read commands.csv"))
+	}
+	commandsLines := strings.Split(strings.TrimSpace(string(commandsFileContent)), "\n")
+	for _, line := range commandsLines {
+		name, command := strings.Split(line, ",")[0], strings.Split(line, ",")[1]
+		commands[name] = command
+	}
+	return commands
+}
+
 func getFeedsUrls() []string {
 	feeds, err := os.ReadFile(feedsFilePath)
 	if err != nil {

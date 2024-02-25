@@ -61,7 +61,10 @@ func setupItemsTable() {
 		case tcell.KeyEnter:
 			markItemAsRead()
 			itemUrl := getItemData().url
-			cmd := exec.Command(BROWSER, itemUrl)
+			command := strings.Split(
+				strings.Replace(commands["onEnter"], "%url", itemUrl, 1),
+				" ")
+			cmd := exec.Command(command[0], command[1:]...)
 			cmd.Run()
 			return nil
 
@@ -81,7 +84,6 @@ func setupItemsTable() {
 			return event
 		}
 	})
-
 }
 
 func setupCommandInput() {
