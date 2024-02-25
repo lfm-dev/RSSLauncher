@@ -43,8 +43,9 @@ func markItemAsRead() {
 
 func markAllItemsRead() {
 	feed := getFeedData()
-	for i := 0; i < len(feed.items); i++ {
+	for i := range feed.items {
 		feed.items[i].read = true
 	}
+
 	renderItemsTable(false)
 }
