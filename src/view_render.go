@@ -13,7 +13,7 @@ func renderFeedsTable(feeds []Feed) {
 	}
 }
 
-func renderItemsTable() {
+func renderItemsTable(selectFirstItem bool) {
 	itemsTable.Clear()
 	feedItems := getFeedData().items
 	for i, item := range feedItems {
@@ -28,14 +28,17 @@ func renderItemsTable() {
 
 		itemsTable.SetCell(i, 0, itemCell)
 	}
-	itemsTable.Select(0, 0)
+
+	if selectFirstItem {
+		itemsTable.Select(0, 0)
+	}
 }
 
 func markItemAsRead() {
 	feed := getFeedData()
 	itemIndex, _ := itemsTable.GetSelection()
 	feed.items[itemIndex].read = true
-	renderItemsTable() // for now
+	renderItemsTable(false) // for now
 }
 
 func markAllItemsRead() {
@@ -43,5 +46,5 @@ func markAllItemsRead() {
 	for i := 0; i < len(feed.items); i++ {
 		feed.items[i].read = true
 	}
-	renderItemsTable()
+	renderItemsTable(false)
 }

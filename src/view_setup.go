@@ -42,7 +42,7 @@ func setupFeedsTable() {
 	})
 
 	feedsTable.SetSelectionChangedFunc(func(_ int, _ int) {
-		renderItemsTable()
+		renderItemsTable(true)
 		itemsTable.ScrollToBeginning()
 	})
 }
@@ -113,5 +113,5 @@ func setupUI(feeds []Feed) {
 	itemsTable.SetBorder(true)
 
 	renderFeedsTable(feeds)
-	renderItemsTable()
+	renderItemsTable(true)
 }
