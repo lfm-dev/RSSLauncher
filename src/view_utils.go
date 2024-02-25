@@ -8,6 +8,16 @@ import (
 	"github.com/rivo/tview"
 )
 
+func getCommandList() string {
+	var commandList []string
+	for command := range commands {
+		if command != "onEnter" {
+			commandList = append(commandList, command)
+		}
+	}
+	return strings.Join(commandList, " / ")
+}
+
 func getSelectedCell(table *tview.Table) *tview.TableCell {
 	cellIndex, _ := table.GetSelection()
 

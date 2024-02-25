@@ -22,6 +22,9 @@ var (
 	helpText     = tview.NewTextView().SetText(
 		"Open in browser: Enter / Run command: TAB / Mark as read: Ctrl+R / Quit: Esc",
 	)
+	commandList = tview.NewTextView().SetText(
+		"Available commands: " + getCommandList(),
+	)
 
 	mainFlex   = tview.NewFlex()
 	tablesFlex = tview.NewFlex()

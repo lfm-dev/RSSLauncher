@@ -38,7 +38,7 @@ func markItemAsRead() {
 	feed := getFeedData()
 	itemIndex, _ := itemsTable.GetSelection()
 	feed.items[itemIndex].read = true
-	renderItemsTable(false) // for now
+	renderItemsTable(false)
 }
 
 func markAllItemsRead() {

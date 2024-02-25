@@ -99,7 +99,7 @@ func setupCommandInput() {
 func setupUI(feeds []Feed) {
 	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(itemsTable, 0, 3, false)
 
-	mainFlex.SetDirection(tview.FlexRow).AddItem(tablesFlex, 0, 1, false).AddItem(helpText, 1, 0, false).AddItem(commandInput, 1, 0, false)
+	mainFlex.SetDirection(tview.FlexRow).AddItem(tablesFlex, 0, 1, false).AddItem(helpText, 1, 0, false).AddItem(commandList, 1, 0, false).AddItem(commandInput, 1, 0, false)
 
 	feedsTable.SetBorder(true)
 	itemsTable.SetBorder(true)

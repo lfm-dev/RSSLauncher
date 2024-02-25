@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func getCommandList() map[string]string {
+func getCommands() map[string]string {
 	commands := make(map[string]string)
 	commandsFileContent, err := os.ReadFile(commandsFilePath)
 	if err != nil {

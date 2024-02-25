@@ -10,7 +10,7 @@ var (
 	ignoreFilePath   = homePath + "/.config/RSS/ignore.txt"
 	commandsFilePath = homePath + "/.config/RSS/commands.csv"
 	wordsToIgnore    = getWordsToIgnore()
-	commands         = getCommandList()
+	commands         = getCommands()
 )
 
 const (
