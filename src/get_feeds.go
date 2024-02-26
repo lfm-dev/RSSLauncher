@@ -38,6 +38,7 @@ func getFeeds() []Feed {
 		if err != nil {
 			fmt.Printf("\nError: Can't get %s data\n", feedUrl)
 			time.Sleep(2000 * time.Millisecond) // so the user can read it
+			progressBar.Add(1)
 			continue
 		}
 
