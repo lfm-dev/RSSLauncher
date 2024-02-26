@@ -12,7 +12,7 @@ var (
 	ignoreFilePath   = path.Join(configFolderPath, "ignore.txt")
 	commandsFilePath = path.Join(configFolderPath, "commands.csv")
 	DBFilePath       = path.Join(configFolderPath, "DB.csv")
-	wordsToIgnore    = getWordsToIgnore()
+	wordsToIgnore    = getFileLines(ignoreFilePath)
 	commands         = getCommands()
 )
 

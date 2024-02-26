@@ -27,7 +27,7 @@ func getFeedItems(goFeed *gofeed.Feed) []FeedItem {
 
 //TODO can you update feeds with goroutines?
 func getFeeds() []Feed {
-	feedsUrls := getFeedsUrls()
+	feedsUrls := getFileLines(feedsFilePath)
 	fmt.Printf("Updating %d feeds...\n", len(feedsUrls))
 	progressBar := progressbar.Default(int64(len(feedsUrls)))
 	feeds := make([]Feed, 0)

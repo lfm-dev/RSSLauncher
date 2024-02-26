@@ -1,41 +1,37 @@
 package main
 
 import (
-	"errors"
+	"fmt"
 	"os"
 	"strings"
 )
 
+func getFileLines(filePath string) []string {
+	isComment := func(s string) bool { return strings.HasPrefix(s, "//") }
+
+	fileContent, err := os.ReadFile(filePath)
+	if err != nil {
+		panic(fmt.Errorf("can't read %s", filePath))
+	}
+	fileLines := strings.Split(strings.TrimSpace(string(fileContent)), "\n")
+
+	fileLinesNoComments := make([]string, 0)
+	for _, line := range fileLines {
+		if !isComment(line) {
+			fileLinesNoComments = append(fileLinesNoComments, line)
+		}
+	}
+	return fileLinesNoComments
+}
+
 func getCommands() map[string]string {
 	commands := make(map[string]string)
-	commandsFileContent, err := os.ReadFile(commandsFilePath)
-	if err != nil {
-		panic(errors.New("can't read commands.csv"))
-	}
-	commandsLines := strings.Split(strings.TrimSpace(string(commandsFileContent)), "\n")
+	commandsLines := getFileLines(commandsFilePath)
 	for _, line := range commandsLines {
 		name, command := strings.Split(line, ",")[0], strings.Split(line, ",")[1]
 		commands[name] = command
 	}
 	return commands
-}
-
-func getFeedsUrls() []string {
-	feeds, err := os.ReadFile(feedsFilePath)
-	if err != nil {
-		panic(errors.New("can't read feeds.txt"))
-	}
-	feedsUrls := strings.Split(strings.TrimSpace(string(feeds)), "\n")
-	return feedsUrls
-}
-
-func getWordsToIgnore() []string {
-	ignoreFile, err := os.ReadFile(ignoreFilePath)
-	if err != nil {
-		return make([]string, 0)
-	}
-	wordsToIgnore := strings.Split(strings.TrimSpace(string(ignoreFile)), "\n")
-	return wordsToIgnore
 }
 
 func itemHasIgnoredWord(title string) bool {
