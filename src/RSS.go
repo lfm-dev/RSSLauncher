@@ -2,13 +2,16 @@ package main
 
 import (
 	"os"
+	"path"
 )
 
 var (
 	homePath, _      = os.UserHomeDir()
-	feedsFilePath    = homePath + "/.config/RSS/feeds.txt"
-	ignoreFilePath   = homePath + "/.config/RSS/ignore.txt"
-	commandsFilePath = homePath + "/.config/RSS/commands.csv"
+	configFolderPath = path.Join(homePath, "/.config/RSS")
+	feedsFilePath    = path.Join(configFolderPath, "feeds.txt")
+	ignoreFilePath   = path.Join(configFolderPath, "ignore.txt")
+	commandsFilePath = path.Join(configFolderPath, "commands.csv")
+	DBFilePath       = path.Join(configFolderPath, "DB.csv")
 	wordsToIgnore    = getWordsToIgnore()
 	commands         = getCommands()
 )
