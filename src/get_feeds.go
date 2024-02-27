@@ -49,11 +49,7 @@ func getFeeds() []Feed {
 			name:    goFeed.Title,
 			items:   feedItems,
 		}
-
-		if len(feed.items) > 0 { // only show feeds with new items
-			feeds = append(feeds, feed)
-		}
-
+		feeds = append(feeds, feed)
 		progressBar.Add(1)
 	}
 	return feeds
