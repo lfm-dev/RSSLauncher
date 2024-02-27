@@ -37,14 +37,18 @@ func renderItemsTable(selectFirstItem bool) {
 func markItemAsRead() {
 	feed := getFeedData()
 	itemIndex, _ := itemsTable.GetSelection()
-	feed.items[itemIndex].read = true
-	renderItemsTable(false)
+	if !feed.items[itemIndex].read {
+		feed.items[itemIndex].read = true
+		renderItemsTable(false)
+	}
 }
 
 func markAllItemsRead() {
 	feed := getFeedData()
 	for i := range feed.items {
-		feed.items[i].read = true
+		if !feed.items[i].read {
+			feed.items[i].read = true
+		}
 	}
 
 	renderItemsTable(false)
