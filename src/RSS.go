@@ -16,10 +16,6 @@ var (
 	commands         = getCommands()
 )
 
-const (
-	BROWSER = "firefox"
-)
-
 func main() {
 	feeds := getFeeds()
 	view(feeds)
