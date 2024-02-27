@@ -49,4 +49,5 @@ func runCommand(url string, command string) {
 	process.Stderr = os.Stderr
 	process.Stdout = os.Stdout
 	process.Run()
+	app.Sync()
 }

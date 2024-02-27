@@ -57,7 +57,6 @@ func setupItemsTable() {
 			markItemAsRead()
 			itemUrl := getItemData().url
 			runCommand(itemUrl, commands["onEnter"])
-			app.Sync() // if command gives an error could break TUI
 			return nil
 
 		case tcell.KeyCtrlR:
@@ -91,7 +90,6 @@ func setupCommandInput() {
 			} else {
 				runCommand(itemUrl, commandInput.GetText()) // run custom command
 			}
-			app.Sync() // fix screen
 		}
 	})
 }
