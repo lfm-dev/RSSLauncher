@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
 
@@ -20,10 +21,8 @@ func renderItemsTable(selectFirstItem bool) {
 		itemTitle := fmt.Sprintf("(%s) %s", item.dateFormated, item.title)
 		itemCell := tview.NewTableCell(itemTitle).SetReference(item)
 
-		if !item.read {
-			itemCell.SetTextColor(unreadTextColor).SetBackgroundColor(unreadBkgColor)
-		} else {
-			itemCell.SetTextColor(readTextColor).SetBackgroundColor(readBkgColor)
+		if item.read {
+			itemCell.SetTextColor(tcell.ColorGrey)
 		}
 
 		itemsTable.SetCell(i, 0, itemCell)

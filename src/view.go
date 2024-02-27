@@ -1,15 +1,7 @@
 package main
 
 import (
-	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
-)
-
-const (
-	unreadTextColor = tcell.ColorBlack //these colors suck
-	unreadBkgColor  = tcell.ColorWhite
-	readTextColor   = tcell.ColorGreen
-	readBkgColor    = tcell.ColorYellow
 )
 
 var (
