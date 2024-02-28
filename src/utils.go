@@ -28,8 +28,8 @@ func getCommands() map[string]string {
 	commands := make(map[string]string)
 	commandsLines := getFileLines(commandsFilePath)
 	for _, line := range commandsLines {
-		name, command := strings.Split(line, ",")[0], strings.Split(line, ",")[1]
-		commands[name] = command
+		commandShortcut, command := strings.Split(line, ",")[0], strings.Split(line, ",")[1]
+		commands[commandShortcut] = command
 	}
 	return commands
 }

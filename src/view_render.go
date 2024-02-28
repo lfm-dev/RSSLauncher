@@ -49,6 +49,5 @@ func markAllItemsRead() {
 			feed.items[i].read = true
 		}
 	}
-
 	renderItemsTable(false)
 }

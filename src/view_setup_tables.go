@@ -1,12 +1,9 @@
 package main
 
-import (
-	"github.com/gdamore/tcell/v2"
-	"github.com/rivo/tview"
-)
+import "github.com/gdamore/tcell/v2"
 
 func setupFeedsTable() {
-	feedsTable.SetTitle("Feeds")
+	feedsTable.SetTitle("Feeds").SetBorder(true)
 
 	feedsTable.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 
@@ -43,7 +40,7 @@ func setupFeedsTable() {
 }
 
 func setupItemsTable() {
-	itemsTable.SetTitle("Items")
+	itemsTable.SetTitle("Items").SetBorder(true)
 
 	itemsTable.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 
@@ -75,33 +72,4 @@ func setupItemsTable() {
 			return event
 		}
 	})
-}
-
-func setupCommandInput() {
-	commandInput.SetDoneFunc(func(key tcell.Key) {
-		defer commandInput.SetText("")
-		defer app.SetFocus(itemsTable)
-
-		if key == tcell.KeyEnter && len(commandInput.GetText()) > 0 {
-			markItemAsRead()
-			itemUrl := getItemData().url
-			if command, ok := commands[commandInput.GetText()]; ok {
-				runCommand(itemUrl, command)
-			} else {
-				runCommand(itemUrl, commandInput.GetText()) // run custom command
-			}
-		}
-	})
-}
-
-func setupUI(feeds []Feed) {
-	tablesFlex.AddItem(feedsTable, 0, 1, false).AddItem(itemsTable, 0, 3, false)
-
-	mainFlex.SetDirection(tview.FlexRow).AddItem(tablesFlex, 0, 1, false).AddItem(helpText, 1, 0, false).AddItem(commandList, 1, 0, false).AddItem(commandInput, 1, 0, false)
-
-	feedsTable.SetBorder(true)
-	itemsTable.SetBorder(true)
-
-	renderFeedsTable(feeds)
-	renderItemsTable(true)
 }
