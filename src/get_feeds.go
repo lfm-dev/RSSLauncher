@@ -15,10 +15,10 @@ func getFeedItems(goFeed *gofeed.Feed) []FeedItem {
 			continue
 		}
 		feedItem := FeedItem{
-			url:          item.Link,
-			title:        item.Title,
-			dateFormated: item.PublishedParsed.Format("02-01-2006"),
-			read:         false, // for now
+			url:   item.Link,
+			title: item.Title,
+			date:  *item.PublishedParsed,
+			read:  false, // for now
 		}
 		feedItems = append(feedItems, feedItem)
 	}

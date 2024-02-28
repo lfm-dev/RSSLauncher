@@ -1,5 +1,9 @@
 package main
 
+import (
+	"time"
+)
+
 type Feed struct {
 	feedUrl string
 	url     string
@@ -8,8 +12,8 @@ type Feed struct {
 }
 
 type FeedItem struct {
-	url          string
-	title        string
-	dateFormated string
-	read         bool
+	url   string
+	title string
+	date  time.Time
+	read  bool
 }

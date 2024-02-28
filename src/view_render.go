@@ -18,7 +18,10 @@ func renderItemsTable(selectFirstItem bool) {
 	itemsTable.Clear()
 	feedItems := getFeedData().items
 	for i, item := range feedItems {
-		itemTitle := fmt.Sprintf("(%s) %s", item.dateFormated, item.title)
+		itemTitle := fmt.Sprintf("(%s) %s",
+			item.date.Format("02-01-2006"),
+			item.title,
+		)
 		itemCell := tview.NewTableCell(itemTitle).SetReference(item)
 
 		if item.read {
