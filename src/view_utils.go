@@ -41,13 +41,15 @@ func getItemData() FeedItem {
 	return item
 }
 
-func runCommand(url string, command string) {
+func runCommand(url string, command string, printOutput bool) {
 	cmd := strings.Split(
 		strings.Replace(command, "%url", url, 1),
 		" ")
 	process := exec.Command(cmd[0], cmd[1:]...)
-	process.Stderr = os.Stderr
-	process.Stdout = os.Stdout
+	if printOutput {
+		process.Stderr = os.Stderr
+		process.Stdout = os.Stdout
+	}
 	process.Run()
 	app.Sync()
 }

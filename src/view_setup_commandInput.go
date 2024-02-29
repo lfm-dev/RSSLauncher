@@ -11,9 +11,9 @@ func setupCommandInput() {
 			markItemAsRead()
 			itemUrl := getItemData().ItemUrl
 			if command, ok := commands[commandInput.GetText()]; ok {
-				runCommand(itemUrl, command)
+				go runCommand(itemUrl, command, true)
 			} else {
-				runCommand(itemUrl, commandInput.GetText()) // run custom command
+				go runCommand(itemUrl, commandInput.GetText(), false) // run custom command
 			}
 		}
 	})
