@@ -7,6 +7,8 @@ require (
 	github.com/mmcdole/gofeed v1.2.1
 	github.com/rivo/tview v0.0.0-20240118093911-742cf086196e
 	github.com/schollz/progressbar/v3 v3.14.1
+	gorm.io/driver/sqlite v1.5.5
+	gorm.io/gorm v1.25.7
 )
 
 require (
@@ -28,6 +30,4 @@ require (
 	golang.org/x/sys v0.15.0 // indirect
 	golang.org/x/term v0.15.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
-	gorm.io/driver/sqlite v1.5.5 // indirect
-	gorm.io/gorm v1.25.7 // indirect
 )

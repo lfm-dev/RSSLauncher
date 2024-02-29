@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -41,4 +42,10 @@ func itemHasIgnoredWord(title string) bool {
 		}
 	}
 	return false
+}
+
+func sortItemsByDate(feedItems []FeedItem) {
+	sort.SliceStable(feedItems, func(i, j int) bool {
+		return feedItems[i].Date.After(feedItems[j].Date)
+	})
 }
