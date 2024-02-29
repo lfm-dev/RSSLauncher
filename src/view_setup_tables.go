@@ -9,7 +9,7 @@ func setupFeedsTable() {
 
 		switch event.Key() {
 
-		case tcell.KeyRight:
+		case tcell.KeyRight, tcell.KeyTab:
 			app.SetFocus(itemsTable)
 			return nil
 
