@@ -1,7 +1,6 @@
 package main
 
 import (
-	"os"
 	"os/exec"
 	"strings"
 
@@ -41,15 +40,11 @@ func getItemData() FeedItem {
 	return item
 }
 
-func runCommand(url string, command string, printOutput bool) {
+func runCommand(url string, command string) {
 	cmd := strings.Split(
 		strings.Replace(command, "%url", url, 1),
 		" ")
 	process := exec.Command(cmd[0], cmd[1:]...)
-	if printOutput {
-		process.Stderr = os.Stderr
-		process.Stdout = os.Stdout
-	}
 	process.Run()
 	app.Sync()
 }

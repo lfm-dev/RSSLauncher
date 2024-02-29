@@ -16,7 +16,7 @@ func setupFeedsTable() {
 		case tcell.KeyEnter:
 			feedUrl := getFeedData().url
 			if len(feedUrl) > 0 { // only if feed has a web url
-				go runCommand(feedUrl, commands["onEnter"], false)
+				go runCommand(feedUrl, commands["onEnter"])
 			}
 			return nil
 
@@ -53,7 +53,7 @@ func setupItemsTable() {
 		case tcell.KeyEnter:
 			markItemAsRead()
 			itemUrl := getItemData().ItemUrl
-			go runCommand(itemUrl, commands["onEnter"], false)
+			go runCommand(itemUrl, commands["onEnter"])
 			return nil
 
 		case tcell.KeyCtrlR:
