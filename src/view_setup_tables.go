@@ -52,7 +52,7 @@ func setupItemsTable() {
 
 		case tcell.KeyEnter:
 			markItemAsRead()
-			itemUrl := getItemData().url
+			itemUrl := getItemData().ItemUrl
 			runCommand(itemUrl, commands["onEnter"])
 			return nil
 

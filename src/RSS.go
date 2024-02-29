@@ -11,10 +11,11 @@ var (
 	feedsFilePath    = path.Join(configFolderPath, "feeds.txt")
 	ignoreFilePath   = path.Join(configFolderPath, "ignore.txt")
 	commandsFilePath = path.Join(configFolderPath, "commands.csv")
-	DBFilePath       = path.Join(configFolderPath, "DB.csv")
+	DBFilePath       = path.Join(configFolderPath, "oldItems.db")
 
 	wordsToIgnore = getFileLines(ignoreFilePath)
 	commands      = getCommands()
+	DB            = openDB()
 )
 
 func main() {

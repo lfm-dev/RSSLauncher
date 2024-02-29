@@ -8,17 +8,18 @@ import (
 	"github.com/schollz/progressbar/v3"
 )
 
-func getFeedItems(goFeed *gofeed.Feed) []FeedItem {
+func getNewFeedItems(items []*gofeed.Item, feedUrl string) []FeedItem {
 	feedItems := make([]FeedItem, 0)
-	for _, item := range goFeed.Items {
+	for _, item := range items {
 		if itemHasIgnoredWord(item.Title) {
 			continue
 		}
 		feedItem := FeedItem{
-			url:   item.Link,
-			title: item.Title,
-			date:  *item.PublishedParsed,
-			read:  false, // for now
+			FeedUrl: feedUrl,
+			ItemUrl: item.Link,
+			Title:   item.Title,
+			Date:    *item.PublishedParsed,
+			Read:    false, // for now
 		}
 		feedItems = append(feedItems, feedItem)
 	}
@@ -42,12 +43,14 @@ func getFeeds() []Feed {
 			continue
 		}
 
-		feedItems := getFeedItems(goFeed)
+		newFeedItems := getNewFeedItems(goFeed.Items, feedUrl)
+		addNewItemsToDB(newFeedItems)
+		allFeedItems := getAllItemsFromDB(goFeed.FeedLink)
+
 		feed := Feed{
-			feedUrl: goFeed.FeedLink,
-			url:     goFeed.Link,
-			name:    goFeed.Title,
-			items:   feedItems,
+			url:   goFeed.Link,
+			name:  goFeed.Title,
+			items: allFeedItems,
 		}
 		feeds = append(feeds, feed)
 		progressBar.Add(1)

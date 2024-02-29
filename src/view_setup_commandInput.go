@@ -9,7 +9,7 @@ func setupCommandInput() {
 
 		if key == tcell.KeyEnter && len(commandInput.GetText()) > 0 {
 			markItemAsRead()
-			itemUrl := getItemData().url
+			itemUrl := getItemData().ItemUrl
 			if command, ok := commands[commandInput.GetText()]; ok {
 				runCommand(itemUrl, command)
 			} else {

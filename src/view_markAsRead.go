@@ -3,8 +3,9 @@ package main
 func markItemAsRead() {
 	feed := getFeedData()
 	itemIndex, _ := itemsTable.GetSelection()
-	if !feed.items[itemIndex].read {
-		feed.items[itemIndex].read = true
+	if !feed.items[itemIndex].Read {
+		feed.items[itemIndex].Read = true
+		markAsReadInDB(feed.items[itemIndex].ItemUrl)
 		renderItemsTable(false)
 	}
 }
@@ -12,8 +13,9 @@ func markItemAsRead() {
 func markAllItemsRead() {
 	feed := getFeedData()
 	for i := range feed.items {
-		if !feed.items[i].read {
-			feed.items[i].read = true
+		if !feed.items[i].Read {
+			feed.items[i].Read = true
+			markAsReadInDB(feed.items[i].ItemUrl)
 		}
 	}
 	renderItemsTable(false)

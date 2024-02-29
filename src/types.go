@@ -5,15 +5,15 @@ import (
 )
 
 type Feed struct {
-	feedUrl string
-	url     string
-	name    string
-	items   []FeedItem
+	url   string
+	name  string
+	items []FeedItem
 }
 
 type FeedItem struct {
-	url   string
-	title string
-	date  time.Time
-	read  bool
+	FeedUrl string
+	ItemUrl string `gorm:"primarykey"`
+	Title   string
+	Date    time.Time
+	Read    bool
 }

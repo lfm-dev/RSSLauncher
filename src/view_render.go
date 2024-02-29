@@ -19,12 +19,12 @@ func renderItemsTable(selectFirstItem bool) {
 	feedItems := getFeedData().items
 	for i, item := range feedItems {
 		itemTitle := fmt.Sprintf("(%s) %s",
-			item.date.Format("02-01-2006"),
-			item.title,
+			item.Date.Format("02-01-2006"),
+			item.Title,
 		)
 		itemCell := tview.NewTableCell(itemTitle).SetReference(item)
 
-		if item.read {
+		if item.Read {
 			itemCell.SetTextColor(tcell.ColorGrey)
 		}
 
