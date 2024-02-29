@@ -5,6 +5,9 @@ import (
 	"path"
 )
 
+//TODO cmd to add a new feed
+//TODO cmd to clean cache
+
 var (
 	homePath, _      = os.UserHomeDir()
 	configFolderPath = path.Join(homePath, "/.config/RSS")
