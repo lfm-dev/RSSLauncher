@@ -10,7 +10,7 @@ import (
 
 var (
 	homePath, _      = os.UserHomeDir()
-	configFolderPath = path.Join(homePath, "/.config/RSS")
+	configFolderPath = path.Join(homePath, "/.config/RSSLauncher")
 	feedsFilePath    = path.Join(configFolderPath, "feeds.txt")
 	ignoreFilePath   = path.Join(configFolderPath, "ignore.txt")
 	commandsFilePath = path.Join(configFolderPath, "commands.csv")
