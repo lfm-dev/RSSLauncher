@@ -7,10 +7,21 @@ import (
 	"github.com/rivo/tview"
 )
 
+func updateFeedReadStatus(feed Feed) {
+	if !feedHasUnreadItems(feed) {
+		feedCel := getSelectedCell(feedsTable)
+		feedCel.SetText(feed.name) // removes *
+	}
+}
+
 func renderFeedsTable(feeds []Feed) {
 	for i, feed := range feeds {
+		feedName := feed.name
+		if feedHasUnreadItems(feed) {
+			feedName = "*" + feed.name
+		}
 		feedsTable.SetCell(i, 0,
-			tview.NewTableCell(feed.name).SetReference(feed))
+			tview.NewTableCell(feedName).SetReference(feed))
 	}
 }
 

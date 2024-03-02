@@ -40,6 +40,15 @@ func getItemData() FeedItem {
 	return item
 }
 
+func feedHasUnreadItems(feed Feed) bool {
+	for _, item := range feed.items {
+		if !item.Read {
+			return true
+		}
+	}
+	return false
+}
+
 func runCommand(url string, command string) {
 	cmd := strings.Split(
 		strings.Replace(command, "%url", url, 1),

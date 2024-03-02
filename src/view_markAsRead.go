@@ -7,6 +7,7 @@ func markItemAsRead() {
 		feed.items[itemIndex].Read = true
 		markAsReadInDB(feed.items[itemIndex].ItemUrl)
 		renderItemsTable(false)
+		updateFeedReadStatus(feed)
 	}
 }
 
@@ -19,4 +20,5 @@ func markAllItemsRead() {
 		}
 	}
 	renderItemsTable(false)
+	updateFeedReadStatus(feed)
 }
