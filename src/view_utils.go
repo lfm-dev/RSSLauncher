@@ -51,8 +51,8 @@ func feedHasUnreadItems(feed Feed) bool {
 
 func updateFeedReadStatus(feed Feed) {
 	if !feedHasUnreadItems(feed) {
-		feedCel := getSelectedCell(feedsTable)
-		feedCel.SetText(feed.name) // removes *
+		feedCell := getSelectedCell(feedsTable)
+		feedCell.SetTextColor(TEXT_COLOR_READ)
 	}
 }
 

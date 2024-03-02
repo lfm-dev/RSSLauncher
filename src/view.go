@@ -1,7 +1,12 @@
 package main
 
 import (
+	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
+)
+
+const (
+	TEXT_COLOR_READ = tcell.ColorGrey
 )
 
 var (

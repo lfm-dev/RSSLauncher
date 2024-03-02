@@ -18,7 +18,7 @@ func addNewItemsToDB(items []FeedItem) {
 	for _, newItem := range items {
 		var items []FeedItem
 		DB.Find(&items, "item_url = ?", newItem.ItemUrl)
-		if len(items) > 0 { // that items already is in the DB
+		if len(items) > 0 { // that item (and olders) already are in the DB
 			break
 		}
 		DB.Create(&newItem)

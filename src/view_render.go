@@ -3,18 +3,16 @@ package main
 import (
 	"fmt"
 
-	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
 )
 
 func renderFeedsTable(feeds []Feed) {
 	for i, feed := range feeds {
-		feedName := feed.name
-		if feedHasUnreadItems(feed) {
-			feedName = "*" + feed.name
+		feedCell := tview.NewTableCell(feed.name).SetReference(feed)
+		if !feedHasUnreadItems(feed) {
+			feedCell.SetTextColor(TEXT_COLOR_READ)
 		}
-		feedsTable.SetCell(i, 0,
-			tview.NewTableCell(feedName).SetReference(feed))
+		feedsTable.SetCell(i, 0, feedCell)
 	}
 }
 
@@ -29,7 +27,7 @@ func renderItemsTable(selectFirstItem bool) {
 		itemCell := tview.NewTableCell(itemTitle).SetReference(item)
 
 		if item.Read {
-			itemCell.SetTextColor(tcell.ColorGrey)
+			itemCell.SetTextColor(TEXT_COLOR_READ)
 		}
 
 		itemsTable.SetCell(i, 0, itemCell)
