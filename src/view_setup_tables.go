@@ -21,7 +21,7 @@ func setupFeedsTable() {
 			return nil
 
 		case tcell.KeyCtrlR:
-			markAllItemsRead()
+			markAllItemsAsRead()
 			return nil
 
 		case tcell.KeyEscape:
