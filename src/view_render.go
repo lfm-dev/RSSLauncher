@@ -7,13 +7,6 @@ import (
 	"github.com/rivo/tview"
 )
 
-func updateFeedReadStatus(feed Feed) {
-	if !feedHasUnreadItems(feed) {
-		feedCel := getSelectedCell(feedsTable)
-		feedCel.SetText(feed.name) // removes *
-	}
-}
-
 func renderFeedsTable(feeds []Feed) {
 	for i, feed := range feeds {
 		feedName := feed.name
@@ -44,5 +37,6 @@ func renderItemsTable(selectFirstItem bool) {
 
 	if selectFirstItem {
 		itemsTable.Select(0, 0)
+		itemsTable.ScrollToBeginning()
 	}
 }

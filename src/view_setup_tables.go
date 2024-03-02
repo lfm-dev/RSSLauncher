@@ -6,7 +6,6 @@ func setupFeedsTable() {
 	feedsTable.SetTitle("Feeds").SetBorder(true)
 
 	feedsTable.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-
 		switch event.Key() {
 
 		case tcell.KeyRight, tcell.KeyTab:
@@ -35,7 +34,6 @@ func setupFeedsTable() {
 
 	feedsTable.SetSelectionChangedFunc(func(_ int, _ int) {
 		renderItemsTable(true)
-		itemsTable.ScrollToBeginning()
 	})
 }
 
@@ -43,7 +41,6 @@ func setupItemsTable() {
 	itemsTable.SetTitle("Items").SetBorder(true)
 
 	itemsTable.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-
 		switch event.Key() {
 
 		case tcell.KeyLeft:

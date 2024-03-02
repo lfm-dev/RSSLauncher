@@ -49,6 +49,13 @@ func feedHasUnreadItems(feed Feed) bool {
 	return false
 }
 
+func updateFeedReadStatus(feed Feed) {
+	if !feedHasUnreadItems(feed) {
+		feedCel := getSelectedCell(feedsTable)
+		feedCel.SetText(feed.name) // removes *
+	}
+}
+
 func runCommand(url string, command string) {
 	cmd := strings.Split(
 		strings.Replace(command, "%url", url, 1),
