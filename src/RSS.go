@@ -7,6 +7,7 @@ import (
 
 //TODO cmd to add a new feed
 //TODO cmd to clean cache
+//TODO copy url
 
 var (
 	homePath, _      = os.UserHomeDir()
