@@ -28,6 +28,10 @@ func getSelectedCell(table *tview.Table) *tview.TableCell {
 
 func getFeedData() Feed {
 	cellRef := getSelectedCell(feedsTable).GetReference()
+	if cellRef == nil { // first cell is category cell
+		feedsTable.Select(1, 0)
+		cellRef = getSelectedCell(feedsTable).GetReference()
+	}
 	feed := cellRef.(Feed)
 
 	return feed

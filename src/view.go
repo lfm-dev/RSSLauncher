@@ -6,7 +6,9 @@ import (
 )
 
 const (
-	TEXT_COLOR_READ = tcell.ColorGrey
+	TEXT_COLOR_READ     = tcell.ColorGrey
+	CATEGORY_BKG_COLOR  = tcell.ColorGreen
+	CATEGORY_TEXT_COLOR = tcell.ColorWhite
 )
 
 var (

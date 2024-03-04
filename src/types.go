@@ -5,9 +5,10 @@ import (
 )
 
 type Feed struct {
-	url   string
-	name  string
-	items []FeedItem
+	url      string
+	name     string
+	category string
+	items    []FeedItem
 }
 
 type FeedItem struct {

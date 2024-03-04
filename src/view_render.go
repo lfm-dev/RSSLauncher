@@ -7,12 +7,24 @@ import (
 )
 
 func renderFeedsTable(feeds []Feed) {
-	for i, feed := range feeds {
+	feedCategory := "noCategory"
+	row := 0
+	for _, feed := range feeds {
+
+		if feed.category != feedCategory {
+			categoryCell := tview.NewTableCell(feed.category).SetSelectable(false).SetBackgroundColor(CATEGORY_BKG_COLOR).SetTextColor(CATEGORY_TEXT_COLOR).SetAlign(1)
+			feedsTable.SetCell(row, 0, categoryCell)
+			feedCategory = feed.category
+			row++
+		}
+
 		feedCell := tview.NewTableCell(feed.name).SetReference(feed)
+
 		if !feedHasUnreadItems(feed) {
 			feedCell.SetTextColor(TEXT_COLOR_READ)
 		}
-		feedsTable.SetCell(i, 0, feedCell)
+		feedsTable.SetCell(row, 0, feedCell)
+		row++
 	}
 }
 
