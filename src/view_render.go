@@ -26,6 +26,10 @@ func renderFeedsTable(feeds []Feed) {
 		feedsTable.SetCell(row, 0, feedCell)
 		row++
 	}
+
+	if getSelectedCell(feedsTable).GetReference() == nil { // first cell is a category cell
+		feedsTable.Select(1, 0)
+	}
 }
 
 func renderItemsTable(selectFirstItem bool) {
