@@ -27,12 +27,23 @@ func getNewFeedItems(goFeed *gofeed.Feed, feedUrl string) []FeedItem {
 	return feedItems
 }
 
+func getFeedsNumber(lines []string) int {
+	nFeeds := 0
+	for _, line := range lines {
+		if !strings.HasPrefix(line, "#") { // # category name
+			nFeeds++
+		}
+	}
+	return nFeeds
+}
+
 //TODO can you update feeds with goroutines?
 func getFeeds() []Feed {
 	feedsUrls := getFileLines(feedsFilePath)
+	nFeeds := getFeedsNumber(feedsUrls)
 
-	fmt.Printf("Updating %d feeds...\n", len(feedsUrls)) // len(feedsUrls) includes categories
-	progressBar := progressbar.Default(int64(len(feedsUrls)))
+	fmt.Printf("Updating %d feeds...\n", nFeeds)
+	progressBar := progressbar.Default(int64(nFeeds))
 	feeds := make([]Feed, 0)
 
 	feedCategory := "noCategory"
