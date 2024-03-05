@@ -39,8 +39,8 @@ func getFeedsNumber(lines []string) int {
 
 //TODO can you update feeds with goroutines?
 func getFeeds() []Feed {
-	feedsUrls := getFileLines(feedsFilePath)
-	nFeeds := getFeedsNumber(feedsUrls)
+	feedsFileLines := getFileLines(feedsFilePath)
+	nFeeds := getFeedsNumber(feedsFileLines)
 
 	fmt.Printf("Updating %d feeds...\n", nFeeds)
 	progressBar := progressbar.Default(int64(nFeeds))
@@ -48,13 +48,14 @@ func getFeeds() []Feed {
 
 	feedCategory := "noCategory"
 	feedParser := gofeed.NewParser()
-	for _, feedUrl := range feedsUrls {
+	for _, line := range feedsFileLines {
 
-		if strings.HasPrefix(feedUrl, "#") {
-			feedCategory = feedUrl[1:]
+		if strings.HasPrefix(line, "#") {
+			feedCategory = line[1:]
 			continue
 		}
 
+		feedUrl := line
 		goFeed, err := feedParser.ParseURL(feedUrl)
 		if err != nil {
 			fmt.Printf("\nError: Can't get %s data\n", feedUrl)
