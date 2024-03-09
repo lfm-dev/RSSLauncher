@@ -49,18 +49,11 @@ func feedHasUnreadItems(feed Feed) bool {
 	return false
 }
 
-func updateFeedReadStatus(feed Feed) {
-	if !feedHasUnreadItems(feed) {
-		feedCell := getSelectedCell(feedsTable)
-		feedCell.SetTextColor(TEXT_COLOR_READ)
-	}
-}
-
 func runCommand(url string, command string) {
 	cmd := strings.Split(
 		strings.Replace(command, "%url", url, 1),
 		" ")
 	process := exec.Command(cmd[0], cmd[1:]...)
 	process.Run()
-	app.Sync()
+	// app.Sync() // not longer really needed
 }

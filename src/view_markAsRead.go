@@ -1,5 +1,12 @@
 package main
 
+func updateFeedReadStatus(feed Feed) {
+	if !feedHasUnreadItems(feed) {
+		feedCell := getSelectedCell(feedsTable)
+		feedCell.SetTextColor(TEXT_COLOR_READ)
+	}
+}
+
 func markItemAsRead() {
 	feed := getFeedData()
 	i, _ := itemsTable.GetSelection()
@@ -11,7 +18,7 @@ func markItemAsRead() {
 	}
 }
 
-func markAllItemsAsRead() {
+func markAllFeedItemsAsRead() {
 	feed := getFeedData()
 	for i := range feed.items {
 		if !feed.items[i].Read {

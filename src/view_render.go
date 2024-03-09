@@ -7,14 +7,14 @@ import (
 )
 
 func renderFeedsTable(feeds []Feed) {
-	feedCategory := "noCategory"
+	currentCategory := "noCategory"
 	row := 0
 	for _, feed := range feeds {
 
-		if feed.category != feedCategory {
+		if feed.category != currentCategory {
 			categoryCell := tview.NewTableCell(feed.category).SetSelectable(false).SetBackgroundColor(CATEGORY_BKG_COLOR).SetTextColor(CATEGORY_TEXT_COLOR).SetAlign(1)
 			feedsTable.SetCell(row, 0, categoryCell)
-			feedCategory = feed.category
+			currentCategory = feed.category
 			row++
 		}
 
@@ -27,7 +27,7 @@ func renderFeedsTable(feeds []Feed) {
 		row++
 	}
 
-	if getSelectedCell(feedsTable).GetReference() == nil { // first cell is a category cell
+	if getSelectedCell(feedsTable).GetReference() == nil { // if first cell is a category cell -> select second cell
 		feedsTable.Select(1, 0)
 	}
 }
