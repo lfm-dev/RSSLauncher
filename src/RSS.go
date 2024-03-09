@@ -7,6 +7,8 @@ import (
 
 //TODO cmd to add a new feed
 //TODO cmd to clean cache
+//TODO cmd to import opml
+//TODO cmd to export settings, feeds, etc
 //TODO copy url
 
 var (
