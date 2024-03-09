@@ -2,6 +2,8 @@
 
 A simple TUI RSS reader written in Go.
 
+![screenshot](./img/RSSLauncher.png)
+
 ## Features
 
 * Simple terminal user interface
