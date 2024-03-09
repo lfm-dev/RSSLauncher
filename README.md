@@ -1,6 +1,6 @@
 # RSSLauncher
 
-A simple TUI RSS feed reader written in Go.
+A simple TUI RSS reader written in Go.
 
 ## Features
 
