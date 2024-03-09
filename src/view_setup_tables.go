@@ -32,8 +32,12 @@ func setupFeedsTable() {
 		}
 	})
 
-	feedsTable.SetSelectionChangedFunc(func(_ int, _ int) {
+	feedsTable.SetSelectionChangedFunc(func(row int, _ int) {
 		renderItemsTable(true)
+
+		if row == 1 && getFeedData().category != "noCategory" {
+			feedsTable.ScrollToBeginning() // so it shows the first category name
+		}
 	})
 }
 
