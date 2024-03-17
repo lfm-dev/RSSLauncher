@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/rivo/tview"
+	"golang.design/x/clipboard"
 )
 
 func getCommandList() string {
@@ -56,4 +57,12 @@ func runCommand(url string, command string) {
 	process := exec.Command(cmd[0], cmd[1:]...)
 	process.Run()
 	// app.Sync() // not longer really needed
+}
+
+func copyToClipboard(stringToCopy string) {
+	err := clipboard.Init()
+	if err != nil {
+		panic(err)
+	}
+	clipboard.Write(clipboard.FmtText, []byte(stringToCopy))
 }

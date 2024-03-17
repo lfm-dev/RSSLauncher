@@ -18,7 +18,7 @@ var (
 	itemsTable = tview.NewTable().SetSelectable(true, false)
 
 	helpText = tview.NewTextView().SetText(
-		"Open in browser: Enter / Run command: TAB / Mark as read: Ctrl+R / Quit: Esc",
+		"Open in browser: Enter / Run command: TAB / Mark as read: Ctrl+R / Copy URL: Ctrl+X / Quit: Esc",
 	)
 	commandList = tview.NewTextView().SetText(
 		"Available commands: " + getCommandList(),

@@ -1,6 +1,8 @@
 package main
 
-import "github.com/gdamore/tcell/v2"
+import (
+	"github.com/gdamore/tcell/v2"
+)
 
 func setupFeedsTable() {
 	feedsTable.SetTitle("Feeds").SetBorder(true)
@@ -21,6 +23,10 @@ func setupFeedsTable() {
 
 		case tcell.KeyCtrlR:
 			markAllFeedItemsAsRead()
+			return nil
+
+		case tcell.KeyCtrlX:
+			copyToClipboard(getFeedData().url)
 			return nil
 
 		case tcell.KeyEscape:
@@ -59,6 +65,10 @@ func setupItemsTable() {
 
 		case tcell.KeyCtrlR:
 			markItemAsRead()
+			return nil
+
+		case tcell.KeyCtrlX:
+			copyToClipboard(getItemData().ItemUrl)
 			return nil
 
 		case tcell.KeyTab:
