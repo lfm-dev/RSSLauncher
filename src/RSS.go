@@ -7,7 +7,6 @@ import (
 
 //TODO cmd to add a new feed
 //TODO cmd to import opml
-//TODO copy url
 
 var (
 	homePath, _      = os.UserHomeDir()
