@@ -30,9 +30,9 @@ func getItemsFromFeed(goFeed *gofeed.Feed, feedUrl string) []FeedItem {
 	return feedItems
 }
 
-func getFeedsNumber(lines []string) int {
+func getFeedsNumber(feedFileLines []string) int {
 	nFeeds := 0
-	for _, line := range lines {
+	for _, line := range feedFileLines {
 		if !strings.HasPrefix(line, "#") { // # category name
 			nFeeds++
 		}
