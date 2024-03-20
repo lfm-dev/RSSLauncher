@@ -9,16 +9,16 @@ import (
 //TODO cmd to import opml
 
 var (
-	homePath, _      = os.UserHomeDir()
-	configFolderPath = path.Join(homePath, "/.config/RSSLauncher")
-	feedsFilePath    = path.Join(configFolderPath, "feeds.txt")
-	ignoreFilePath   = path.Join(configFolderPath, "ignore.txt")
-	commandsFilePath = path.Join(configFolderPath, "commands.csv")
-	DBFilePath       = path.Join(configFolderPath, "items.db")
+	homePath, _       = os.UserHomeDir()
+	configFolderPath  = path.Join(homePath, "/.config/RSSLauncher")
+	feedsFilePath     = path.Join(configFolderPath, "feeds.txt")
+	blacklistFilePath = path.Join(configFolderPath, "blacklist.txt")
+	commandsFilePath  = path.Join(configFolderPath, "commands.csv")
+	DBFilePath        = path.Join(configFolderPath, "items.db")
 
-	wordsToIgnore = getFileLines(ignoreFilePath)
-	commands      = getCommands()
-	DB            = openDB()
+	blacklistedWords = getFileLines(blacklistFilePath)
+	commands         = getCommands()
+	DB               = openDB()
 )
 
 func main() {

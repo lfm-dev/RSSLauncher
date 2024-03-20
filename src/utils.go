@@ -35,9 +35,9 @@ func getCommands() map[string]string {
 	return commands
 }
 
-func itemHasIgnoredWord(title string) bool {
-	for _, word := range wordsToIgnore {
-		if strings.Contains(title, word) {
+func itemHasBlacklistedWord(title string) bool {
+	for _, blacklistedWord := range blacklistedWords {
+		if strings.Contains(title, blacklistedWord) {
 			return true
 		}
 	}

@@ -11,9 +11,10 @@ import (
 
 func getItemsFromFeed(goFeed *gofeed.Feed, feedUrl string) []FeedItem {
 	feedItems := make([]FeedItem, 0)
+
 	for _, item := range goFeed.Items {
 
-		if itemHasIgnoredWord(item.Title) {
+		if itemHasBlacklistedWord(item.Title) {
 			continue
 		}
 
