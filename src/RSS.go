@@ -22,7 +22,7 @@ var (
 )
 
 func main() {
-	getArgs()
+	runUsrInput()
 	feeds := getFeeds()
 	view(feeds)
 }

@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func getArgs() {
+func runUsrInput() {
 	var clearCache = flag.Bool("cc", false, "clear cache")
 	var exportSettings = flag.Bool("es", false, "export settings")
 
