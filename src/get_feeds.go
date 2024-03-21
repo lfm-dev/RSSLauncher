@@ -70,7 +70,6 @@ func getFeeds() []Feed {
 		newFeedItems := getItemsFromFeed(goFeed, feedUrl)
 		addNewItemsToDB(newFeedItems)
 		allFeedItems := getAllItemsFromDB(feedUrl)
-		sortItemsByDate(allFeedItems)
 
 		feed := Feed{
 			url:      goFeed.Link,

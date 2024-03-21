@@ -27,8 +27,7 @@ func addNewItemsToDB(items []FeedItem) {
 
 func getAllItemsFromDB(feedUrl string) []FeedItem {
 	var items []FeedItem
-	//TODO try DB.Order("date desc").Find...
-	DB.Find(&items, "feed_url = ?", feedUrl)
+	DB.Order("date desc").Find(&items, "feed_url = ?", feedUrl)
 	return items
 }
 
