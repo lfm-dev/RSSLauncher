@@ -33,7 +33,7 @@ func exportSettingsToZip() {
 	}
 	defer zipFile.Close()
 
-	var files = []string{"commands.csv", "feeds.txt", "ignore.txt", "items.db"}
+	var files = []string{"commands.csv", "feeds.txt", "blacklist.txt", "items.db"}
 	zipw := zip.NewWriter(zipFile)
 	defer zipw.Close()
 
