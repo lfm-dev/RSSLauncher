@@ -2,15 +2,14 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"os"
 )
 
 func runUsrInput() {
 	var clearCache = flag.Bool("cc", false, "clear cache")
 	var exportSettings = flag.Bool("es", false, "export settings")
-	var newFeed string
-	flag.StringVar(&newFeed, "af", "", "add new feed")
+	var newFeedURL string
+	flag.StringVar(&newFeedURL, "af", "", "add new feed")
 
 	flag.Parse()
 
@@ -24,8 +23,8 @@ func runUsrInput() {
 		os.Exit(0)
 	}
 
-	if len(newFeed) > 0 {
-		fmt.Println(newFeed)
+	if len(newFeedURL) > 0 {
+		addNewFeed(newFeedURL)
 		os.Exit(0)
 	}
 }
