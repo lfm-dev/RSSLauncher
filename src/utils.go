@@ -42,3 +42,21 @@ func itemHasBlacklistedWord(title string) bool {
 	}
 	return false
 }
+
+func writeLinesToFile(lines []string, filePath string) {
+	if _, err := os.Stat(filePath); err == nil {
+		os.Remove(filePath)
+	}
+	f, err := os.Create(filePath)
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	for _, line := range lines {
+		_, err := f.WriteString(line + "\n")
+		if err != nil {
+			panic(err)
+		}
+	}
+}

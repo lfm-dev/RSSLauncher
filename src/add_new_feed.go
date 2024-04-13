@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"slices"
+)
 
 func addNewFeed(newFeedURL string) {
-	fmt.Println(newFeedURL)
+	feedFileLines := getFileLines(feedsFilePath)
+	feedFileLines = slices.Insert(feedFileLines, 0, newFeedURL)
+	writeLinesToFile(feedFileLines, feedsFilePath)
 }
