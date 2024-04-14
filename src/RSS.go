@@ -5,7 +5,6 @@ import (
 	"path"
 )
 
-//TODO cmd to add a new feed (with category option)
 //TODO cmd to import opml
 
 var (

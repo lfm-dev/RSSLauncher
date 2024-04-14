@@ -10,6 +10,8 @@ func runUsrInput() {
 	var exportSettings = flag.Bool("es", false, "export settings")
 	var newFeedURL string
 	flag.StringVar(&newFeedURL, "af", "", "add new feed")
+	var newFeedCategory string
+	flag.StringVar(&newFeedCategory, "c", "noCategory", "new feed category")
 
 	flag.Parse()
 
@@ -24,7 +26,7 @@ func runUsrInput() {
 	}
 
 	if len(newFeedURL) > 0 {
-		addNewFeed(newFeedURL)
+		addNewFeed(newFeedURL, newFeedCategory)
 		os.Exit(0)
 	}
 }

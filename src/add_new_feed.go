@@ -4,8 +4,19 @@ import (
 	"slices"
 )
 
-func addNewFeed(newFeedURL string) {
+func addNewFeed(newFeedURL, newFeedCategory string) {
 	feedFileLines := getFileLines(feedsFilePath)
-	feedFileLines = slices.Insert(feedFileLines, 0, newFeedURL)
+
+	if newFeedCategory == "noCategory" {
+		feedFileLines = slices.Insert(feedFileLines, 0, newFeedURL)
+
+	} else if slices.Contains(feedFileLines, "#"+newFeedCategory) {
+		i := slices.Index(feedFileLines, "#"+newFeedCategory)
+		feedFileLines = slices.Insert(feedFileLines, i+1, newFeedURL)
+
+	} else {
+		feedFileLines = slices.Insert(feedFileLines, 0, newFeedURL)
+		feedFileLines = slices.Insert(feedFileLines, 0, "#"+newFeedCategory)
+	}
 	writeLinesToFile(feedFileLines, feedsFilePath)
 }
