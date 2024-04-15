@@ -15,8 +15,7 @@ func addNewFeed(newFeedURL, newFeedCategory string) {
 		feedFileLines = slices.Insert(feedFileLines, i+1, newFeedURL)
 
 	} else {
-		feedFileLines = slices.Insert(feedFileLines, 0, newFeedURL)
-		feedFileLines = slices.Insert(feedFileLines, 0, "#"+newFeedCategory)
+		feedFileLines = append(feedFileLines, "#"+newFeedCategory, newFeedURL)
 	}
 
 	writeLinesToFile(feedFileLines, feedsFilePath)
