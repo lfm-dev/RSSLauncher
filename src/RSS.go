@@ -6,6 +6,7 @@ import (
 )
 
 //TODO README.md
+//TODO installation script
 
 var (
 	homePath, _       = os.UserHomeDir()
