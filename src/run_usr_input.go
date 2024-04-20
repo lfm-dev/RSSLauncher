@@ -12,6 +12,8 @@ func runUsrInput() {
 	flag.StringVar(&newFeedURL, "af", "", "add new feed")
 	var newFeedCategory string
 	flag.StringVar(&newFeedCategory, "c", "noCategory", "new feed category")
+	var opmlFilePath string
+	flag.StringVar(&opmlFilePath, "iopml", "", "import opml (opml path)")
 
 	flag.Parse()
 
@@ -27,6 +29,11 @@ func runUsrInput() {
 
 	if len(newFeedURL) > 0 {
 		addNewFeed(newFeedURL, newFeedCategory)
+		os.Exit(0)
+	}
+
+	if len(opmlFilePath) > 0 {
+		importOpmlFeeds(opmlFilePath)
 		os.Exit(0)
 	}
 }
