@@ -5,6 +5,8 @@ import (
 	"path"
 )
 
+//TODO README.md
+
 var (
 	homePath, _       = os.UserHomeDir()
 	configFolderPath  = path.Join(homePath, "/.config/RSSLauncher")
