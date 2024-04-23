@@ -8,6 +8,7 @@ A simple TUI RSS reader written in Go.
 
 * Simple terminal user interface
 * Organize your feeds by categories
-* Launch commands using a feed item URL
+* Import your feeds from a opml file
+* Launch commands from the TUI
 * Store old items on a local DB (sqlite3)
-* Exclude items based on a list of blacklisted words
+* Ignore items based on a list of blacklisted words
