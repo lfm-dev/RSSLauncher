@@ -3,7 +3,7 @@ module rss
 go 1.22.2
 
 require (
-	github.com/gdamore/tcell/v2 v2.7.0
+	github.com/gdamore/tcell/v2 v2.7.4
 	github.com/mmcdole/gofeed v1.2.1
 	github.com/rivo/tview v0.0.0-20240118093911-742cf086196e
 	github.com/schollz/progressbar/v3 v3.14.1
@@ -31,7 +31,7 @@ require (
 	golang.org/x/image v0.6.0 // indirect
 	golang.org/x/mobile v0.0.0-20230301163155-e0f57694e12c // indirect
 	golang.org/x/net v0.6.0 // indirect
-	golang.org/x/sys v0.15.0 // indirect
-	golang.org/x/term v0.15.0 // indirect
+	golang.org/x/sys v0.17.0 // indirect
+	golang.org/x/term v0.17.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 )
