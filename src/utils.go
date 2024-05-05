@@ -17,7 +17,8 @@ func getFileLines(filePath string) []string {
 
 	fileLinesNoComments := make([]string, 0)
 	for _, line := range fileLines {
-		if !isComment(line) {
+		line = strings.TrimSpace(line)
+		if !isComment(line) && len(line) > 0 {
 			fileLinesNoComments = append(fileLinesNoComments, line)
 		}
 	}

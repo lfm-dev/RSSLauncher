@@ -40,7 +40,7 @@ func getFeedsNumber(feedFileLines []string) int {
 	return nFeeds
 }
 
-//TODO can you update feeds with goroutines?
+// TODO can you update feeds with goroutines?
 func getFeeds() []Feed {
 	feedsFileLines := getFileLines(feedsFilePath)
 	nFeeds := getFeedsNumber(feedsFileLines)
