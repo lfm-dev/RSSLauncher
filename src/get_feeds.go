@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 	"time"
 
@@ -43,6 +44,10 @@ func getFeedsNumber(feedFileLines []string) int {
 // TODO can you update feeds with goroutines?
 func getFeeds() []Feed {
 	feedsFileLines := getFileLines(feedsFilePath)
+	if len(feedsFileLines) == 0 {
+		fmt.Println("no feeds in config file")
+		os.Exit(0)
+	}
 	nFeeds := getFeedsNumber(feedsFileLines)
 
 	fmt.Printf("Updating %d feeds...\n", nFeeds)
