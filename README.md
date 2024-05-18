@@ -13,6 +13,10 @@ A simple TUI RSS reader written in Go.
 * Store old items on a local DB (sqlite3)
 * Ignore items based on a list of blacklisted words
 
+## Dependencies
+
+* libx11-dev
+
 ## Options
 
 |Options|Description|Parameter|
