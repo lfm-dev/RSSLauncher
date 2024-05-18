@@ -18,6 +18,7 @@ func addNewItemsToDB(items []FeedItem) {
 	for _, newItem := range items {
 		var items []FeedItem
 		DB.Find(&items, "item_url = ?", newItem.ItemUrl)
+		//TODO some feeds use the page url as item url (error primary key)
 		if len(items) > 0 { // that item (and olders) already are in the DB
 			break
 		}
