@@ -20,11 +20,12 @@ func getItemsFromFeed(goFeed *gofeed.Feed, feedUrl string) []FeedItem {
 		}
 
 		feedItem := FeedItem{
-			FeedUrl: feedUrl,
-			ItemUrl: item.Link,
-			Title:   item.Title,
-			Date:    *item.PublishedParsed,
-			Read:    false,
+			FeedUrl:        feedUrl,
+			ItemPrimaryKey: item.Link + strings.ReplaceAll(item.Published, " ", "-"),
+			ItemUrl:        item.Link,
+			Title:          item.Title,
+			Date:           *item.PublishedParsed,
+			Read:           false,
 		}
 		feedItems = append(feedItems, feedItem)
 	}

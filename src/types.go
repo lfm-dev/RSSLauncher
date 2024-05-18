@@ -12,9 +12,10 @@ type Feed struct {
 }
 
 type FeedItem struct {
-	FeedUrl string
-	ItemUrl string `gorm:"primarykey"`
-	Title   string
-	Date    time.Time
-	Read    bool
+	FeedUrl        string
+	ItemPrimaryKey string `gorm:"primarykey"`
+	ItemUrl        string
+	Title          string
+	Date           time.Time
+	Read           bool
 }
