@@ -40,7 +40,7 @@ func renderItemsTable(selectFirstItem bool) {
 			item.Date.Format("02-01-2006"),
 			item.Title,
 		)
-		itemCell := tview.NewTableCell(itemTitle).SetReference(item)
+		itemCell := tview.NewTableCell(itemTitle).SetReference(item).SetExpansion(1)
 
 		if item.Read {
 			itemCell.SetTextColor(TEXT_COLOR_READ)
