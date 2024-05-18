@@ -12,7 +12,7 @@ func renderFeedsTable(feeds []Feed) {
 	for _, feed := range feeds {
 
 		if feed.category != currentCategory {
-			categoryCell := tview.NewTableCell(feed.category).SetSelectable(false).SetBackgroundColor(CATEGORY_BKG_COLOR).SetTextColor(CATEGORY_TEXT_COLOR).SetAlign(1)
+			categoryCell := tview.NewTableCell(feed.category).SetSelectable(false).SetBackgroundColor(CATEGORY_BKG_COLOR).SetTextColor(CATEGORY_TEXT_COLOR).SetAlign(1).SetExpansion(1)
 			feedsTable.SetCell(row, 0, categoryCell)
 			currentCategory = feed.category
 			row++
